@@ -22,10 +22,10 @@ export const FloatingWhatsAppWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-20 md:bottom-8 right-5 z-40">
+    <div className="fixed bottom-[74px] md:bottom-8 right-3 sm:right-6 z-40">
       {/* Mini Chat Card */}
       {isOpen && (
-        <div className="mb-3 w-80 sm:w-96 bg-milk rounded-3xl shadow-2xl border border-honey/30 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="mb-3 w-[calc(100vw-1.5rem)] sm:w-96 max-w-sm bg-milk rounded-3xl shadow-2xl border border-honey/30 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {/* Card Header */}
           <div className="bg-cocoa text-milk p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">

@@ -68,7 +68,7 @@ export const PuppyDetailPage = () => {
   const waEnquiryText = `Hi TeddyPups! I'm enquiring about ${puppy.name} (${puppy.breed}, ${puppy.gender}, ${puppy.ageLabel || puppy.ageMonths + ' months'}) listed on https://puppy.instabizweb.com/puppies/${puppy.slug}. Could you share recent videos, health details, and how to reserve?`;
 
   return (
-    <div className="py-8 md:py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-6 sm:py-8 md:py-14 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-20 md:pb-14">
       <SEO
         title={`${puppy.name}, ${puppy.breed} puppy | TeddyPups U.A.E.`}
         description={`Meet ${puppy.name}, a gorgeous teacup ${puppy.breed} in Dubai. ${puppy.description}`}
@@ -201,17 +201,17 @@ export const PuppyDetailPage = () => {
                 href={getWhatsAppLink(waEnquiryText)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                className="w-full py-3.5 sm:py-4 px-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base shadow-lift transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-center"
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
+                <MessageCircle className="w-5 h-5 fill-current flex-shrink-0" />
                 <span>Enquire on WhatsApp about {puppy.name}</span>
               </a>
 
               <Link
                 to="/contact"
-                className="w-full py-3.5 rounded-full bg-honey/25 hover:bg-honey/40 text-cocoa font-bold text-sm border border-honey/40 transition flex items-center justify-center gap-2"
+                className="w-full py-3 sm:py-3.5 px-4 rounded-full bg-honey/25 hover:bg-honey/40 text-cocoa font-bold text-xs sm:text-sm border border-honey/40 transition flex items-center justify-center gap-2 text-center"
               >
-                <Calendar className="w-4 h-4 text-toffee" />
+                <Calendar className="w-4 h-4 text-toffee flex-shrink-0" />
                 <span>Book a Showroom Visit to Meet {puppy.name}</span>
               </Link>
             </div>

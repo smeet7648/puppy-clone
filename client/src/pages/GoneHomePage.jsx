@@ -27,7 +27,7 @@ export const GoneHomePage = () => {
   }, []);
 
   return (
-    <div className="py-10 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8 sm:py-10 md:py-16 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-24 md:pb-16">
       <SEO
         title="Gone Home (Adopted Puppies) | TeddyPups U.A.E."
         description="Browse our beloved teacup puppies who have happily joined their forever families across Dubai, Abu Dhabi, and worldwide."

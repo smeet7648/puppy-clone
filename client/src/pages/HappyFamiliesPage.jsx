@@ -30,7 +30,7 @@ export const HappyFamiliesPage = () => {
   }, []);
 
   return (
-    <div className="py-10 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8 sm:py-10 md:py-16 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-24 md:pb-16">
       <SEO
         title="Happy Families & Testimonials | TeddyPups U.A.E."
         description="See real customer photos and read reviews from families across Dubai, Abu Dhabi, and beyond who welcomed their teacup puppies with TeddyPups."

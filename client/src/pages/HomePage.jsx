@@ -110,11 +110,11 @@ export const HomePage = () => {
         </div>
 
         {/* Ambient Video Control Badge */}
-        <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-20">
+        <div className="absolute top-3 right-3 sm:top-6 sm:right-8 z-20">
           <button
             type="button"
             onClick={toggleVideoPlay}
-            className="inline-flex items-center gap-1.5 bg-white/80 hover:bg-white backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-cocoa hover:text-toffee shadow-xs border border-honey/30 transition hover:scale-105"
+            className="inline-flex items-center gap-1.5 bg-white/80 hover:bg-white backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-cocoa hover:text-toffee shadow-xs border border-honey/30 transition hover:scale-105"
             title={videoPlaying ? "Pause background puppy video" : "Play background puppy video"}
           >
             {videoPlaying ? (
@@ -132,18 +132,18 @@ export const HomePage = () => {
           </button>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center relative z-10">
           {/* Frosted Glass Hero Showcase Card for crisp legibility over vibrant puppy video */}
-          <div className="max-w-4xl mx-auto backdrop-blur-md bg-milk/75 sm:bg-milk/80 rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-white/80 shadow-soft-lg">
+          <div className="max-w-4xl mx-auto backdrop-blur-md bg-milk/75 sm:bg-milk/80 rounded-2xl sm:rounded-4xl p-4 sm:p-8 md:p-10 border border-white/80 shadow-soft-lg">
             {/* Small label */}
             <motion.div
               initial={{ scale: 0, rotate: -6 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', stiffness: 220, damping: 14 }}
-              className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs backdrop-blur-xs"
+              className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full mb-4 sm:mb-6 shadow-xs backdrop-blur-xs"
             >
               <span className="w-2 h-2 rounded-full bg-toffee animate-pulse" />
-              <span className="font-scrawl text-toffee text-sm sm:text-base font-semibold">
+              <span className="font-scrawl text-toffee text-xs sm:text-base font-semibold">
                 every puppy is family
               </span>
             </motion.div>
@@ -153,7 +153,7 @@ export const HomePage = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 180, damping: 16 }}
-              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight leading-[1.1] drop-shadow-xs"
+              className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight leading-[1.15] sm:leading-[1.1] drop-shadow-xs"
             >
               Premium teacup puppies in <span className="text-toffee italic">Dubai</span>
             </motion.h1>
@@ -163,7 +163,7 @@ export const HomePage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed font-medium"
+              className="mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed font-medium"
             >
               Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide.
             </motion.p>
@@ -173,39 +173,39 @@ export const HomePage = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.25, type: 'spring', stiffness: 200, damping: 16 }}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+              className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full"
             >
               <Link
                 to="/puppies"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-toffee text-milk font-bold text-base shadow-lift hover:bg-toffee-deep transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-toffee text-milk font-bold text-sm sm:text-base shadow-lift hover:bg-toffee-deep transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               >
                 <span>View available puppies</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
 
               <a
                 href={getWhatsAppLink("Hi TeddyPups! I would like to enquire about your available teacup puppies.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
                 <span>Enquire on WhatsApp</span>
               </a>
             </motion.div>
 
             {/* Trust badges strip under hero */}
-            <div className="mt-8 pt-6 border-t border-honey/25 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-semibold">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-toffee" />
+            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-honey/25 flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-10 text-xs sm:text-sm text-cocoa-soft font-semibold">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-toffee flex-shrink-0" />
                 <span>100% Health Checked & Vaccinated</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-toffee" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-toffee flex-shrink-0" />
                 <span>Downtown Dubai Showroom</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-toffee" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-toffee flex-shrink-0" />
                 <span>Korea to UAE Concierge</span>
               </div>
             </div>
@@ -400,7 +400,7 @@ export const HomePage = () => {
       {/* 4. DEDICATED SHOWROOM PLAYROOM VIDEO BANNER */}
       <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CartoonSection direction="pop">
-          <div className="relative rounded-4xl overflow-hidden shadow-2xl border-4 border-white aspect-[21/9] sm:aspect-[21/8] min-h-[280px]">
+          <div className="relative rounded-3xl sm:rounded-4xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white aspect-[4/3] sm:aspect-[21/8] min-h-[340px] sm:min-h-[280px]">
             {/* Live Playroom Video Loop */}
             <video
               autoPlay
@@ -414,23 +414,23 @@ export const HomePage = () => {
             </video>
 
             {/* Glassmorphic Overlay with VIP Concierge invitation */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cocoa/90 via-cocoa/40 to-transparent flex items-center p-6 sm:p-12">
+            <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-cocoa/95 via-cocoa/80 sm:via-cocoa/40 to-transparent flex items-end sm:items-center p-5 sm:p-10 md:p-12">
               <div className="max-w-md text-milk">
-                <span className="inline-flex items-center gap-1.5 bg-honey/30 text-honey px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 border border-honey/40">
+                <span className="inline-flex items-center gap-1.5 bg-honey/30 text-honey px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 sm:mb-3 border border-honey/40">
                   <span className="w-2 h-2 rounded-full bg-honey animate-ping" />
                   Live Showroom Cuddles
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-milk mb-2 leading-tight">
+                <h3 className="font-serif text-xl sm:text-3xl md:text-4xl font-bold text-milk mb-2 leading-tight">
                   See our teacup puppies playing live
                 </h3>
-                <p className="text-xs sm:text-sm text-milk/80 mb-5 leading-relaxed">
+                <p className="text-xs sm:text-sm text-milk/80 mb-4 sm:mb-5 leading-relaxed">
                   Every puppy is raised with love, socialization, and pristine hygiene. Schedule an interactive WhatsApp video call to see them play right now.
                 </p>
                 <a
                   href={getWhatsAppLink("Hi TeddyPups! I watched your showroom video. Can I book a live video call to see available puppies?")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-lift transition hover:scale-105 active:scale-95"
+                  className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white w-full sm:w-auto px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-lift transition hover:scale-105 active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 fill-current" />
                   <span>Request Live Video Call</span>
