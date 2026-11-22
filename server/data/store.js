@@ -9,21 +9,56 @@ import FAQModel from '../models/FAQ.js';
 import EnquiryModel from '../models/Enquiry.js';
 import SettingsModel from '../models/Settings.js';
 import AdminModel from '../models/Admin.js';
+import {
+  initialPuppies,
+  initialTestimonials,
+  initialHappyFamilies,
+  initialFAQs,
+  initialSettings,
+  getDefaultEnquiries
+} from './initialData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DB_FILE = path.join(__dirname, 'database.json');
 
+// Default initial database state so the app works out-of-the-box without manual seeding
+const buildDefaultDbState = () => ({
+  puppies: initialPuppies.map((p, idx) => ({
+    ...p,
+    _id: 'pup_' + (idx + 1),
+    createdAt: new Date(Date.now() - idx * 3600000).toISOString()
+  })),
+  testimonials: initialTestimonials.map((t, idx) => ({
+    ...t,
+    _id: 'test_' + (idx + 1),
+    createdAt: new Date().toISOString()
+  })),
+  happyFamilies: initialHappyFamilies.map((h, idx) => ({
+    ...h,
+    _id: 'hf_' + (idx + 1),
+    createdAt: new Date().toISOString()
+  })),
+  faqs: initialFAQs.map((f, idx) => ({
+    ...f,
+    _id: 'faq_' + (idx + 1),
+    createdAt: new Date().toISOString()
+  })),
+  settings: initialSettings,
+  enquiries: getDefaultEnquiries(),
+  admins: [
+    {
+      _id: 'adm_1',
+      email: 'admin@teddypups.ae',
+      // bcrypt hash for 'TeddyPups2026!'
+      passwordHash: '$2a$10$w3U/fE6g0iC8YfH8Z1u18.P9nKxN74K4qA.R76J4mK9Rz4hO3kUfe',
+      name: 'TeddyPups Concierge'
+    }
+  ]
+});
+
 // Initial in-memory cache
-let fileDb = {
-  puppies: [],
-  testimonials: [],
-  happyFamilies: [],
-  faqs: [],
-  enquiries: [],
-  settings: {},
-  admins: []
-};
+let fileDb = buildDefaultDbState();
 
 // Ensure directory exists and load file
 if (!fs.existsSync(__dirname)) {
@@ -33,9 +68,23 @@ if (!fs.existsSync(__dirname)) {
 if (fs.existsSync(DB_FILE)) {
   try {
     const raw = fs.readFileSync(DB_FILE, 'utf8');
-    fileDb = JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (parsed && Array.isArray(parsed.puppies) && parsed.puppies.length > 0) {
+      fileDb = parsed;
+    } else {
+      // Re-save default state if file was empty
+      saveFileDb();
+    }
   } catch (e) {
     console.error('Error reading database.json:', e);
+    saveFileDb();
+  }
+} else {
+  // If file does not exist, save default database immediately
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(fileDb, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Error writing initial database.json:', e);
   }
 }
 

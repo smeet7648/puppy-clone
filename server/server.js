@@ -7,6 +7,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
+import { autoSeedIfEmpty } from './seed.js';
 
 // Route imports
 import puppiesRouter from './routes/puppies.js';
@@ -25,8 +26,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to Database (graceful mongo or file db)
-connectDB();
+// Connect to Database and guarantee default seed data is loaded on server startup
+await connectDB();
+await autoSeedIfEmpty();
 
 // Security Middleware
 app.use(helmet({
