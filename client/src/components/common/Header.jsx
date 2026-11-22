@@ -41,9 +41,8 @@ export const Header = () => {
       </a>
 
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled ? 'bg-milk/95 backdrop-blur-md shadow-soft border-b border-honey/20 py-3' : 'bg-milk/80 backdrop-blur-sm py-4'
-        }`}
+        className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? 'bg-milk/95 backdrop-blur-md shadow-soft border-b border-honey/20 py-3' : 'bg-milk/80 backdrop-blur-sm py-4'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -72,10 +71,9 @@ export const Header = () => {
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `px-3.5 py-2 rounded-full text-sm font-medium transition-all ${
-                      isActive
-                        ? 'bg-honey/30 text-toffee font-semibold shadow-xs'
-                        : 'text-cocoa-soft hover:text-toffee hover:bg-honey/15'
+                    `px-3.5 py-2 rounded-full text-sm font-medium transition-all ${isActive
+                      ? 'bg-honey/30 text-toffee font-semibold shadow-xs'
+                      : 'text-cocoa-soft hover:text-toffee hover:bg-honey/15'
                     }`
                   }
                 >

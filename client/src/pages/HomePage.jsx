@@ -15,6 +15,7 @@ import {
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { PuppyCard } from '../components/common/PuppyCard';
+import { CardPeekerPup } from '../components/common/CardPeekerPup';
 import { SEO } from '../components/common/SEO';
 
 export const HomePage = () => {
@@ -188,35 +189,37 @@ export const HomePage = () => {
           </Link>
         </div>
 
-        {/* Grid of puppies */}
+        {/* Grid of puppies with peeking dogs on scroll */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {displayPuppies.map((pup) => (
-            <PuppyCard key={pup._id || pup.slug} puppy={pup} />
+          {displayPuppies.map((pup, idx) => (
+            <PuppyCard key={pup._id || pup.slug} puppy={pup} index={idx} />
           ))}
 
           {/* Final "Meet them all" tile */}
-          <Link
-            to="/puppies"
-            className="group relative bg-gradient-to-br from-honey/30 via-honey/15 to-milk rounded-3xl border-2 border-dashed border-honey p-6 flex flex-col items-center justify-center text-center hover:border-toffee hover:bg-honey/40 transition-all shadow-soft min-h-[340px]"
-          >
-            <div className="w-16 h-16 rounded-full bg-toffee text-milk flex items-center justify-center mb-4 shadow-lift group-hover:scale-110 transition-transform">
-              <Sparkles className="w-8 h-8" />
-            </div>
-            <h3 className="font-serif text-2xl font-bold text-cocoa mb-2">
-              Meet them all
-            </h3>
-            <p className="text-xs text-cocoa-soft max-w-xs mb-5 leading-relaxed">
-              Browse our full collection of rare teacup puppies, filter by breed, and watch live videos.
-            </p>
-            <span className="inline-flex items-center gap-2 text-xs font-bold text-milk bg-toffee px-5 py-2.5 rounded-full shadow-xs group-hover:bg-toffee-deep transition">
-              <span>View all listings</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </span>
-          </Link>
+          <div className="relative pt-6">
+            <Link
+              to="/puppies"
+              className="relative z-10 group bg-gradient-to-br from-honey/30 via-honey/15 to-milk rounded-3xl border-2 border-dashed border-honey p-6 flex flex-col items-center justify-center text-center hover:border-toffee hover:bg-honey/40 transition-all shadow-soft h-full min-h-[340px]"
+            >
+              <div className="w-16 h-16 rounded-full bg-toffee text-milk flex items-center justify-center mb-4 shadow-lift group-hover:scale-110 transition-transform">
+                <Sparkles className="w-8 h-8" />
+              </div>
+              <h3 className="font-serif text-2xl font-bold text-cocoa mb-2">
+                Meet them all
+              </h3>
+              <p className="text-xs text-cocoa-soft max-w-xs mb-5 leading-relaxed">
+                Browse our full collection of rare teacup puppies, filter by breed, and watch live videos.
+              </p>
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-milk bg-toffee px-5 py-2.5 rounded-full shadow-xs group-hover:bg-toffee-deep transition">
+                <span>View all listings</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* 3. TWO WAYS TO MEET YOUR PUPPY */}
+      {/* 3. TWO WAYS TO MEET YOUR PUPPY (PEEKING DOGS BEHIND CARDS) */}
       <section
         id="two-ways-section"
         className="py-16 md:py-20 bg-[#fdf9f2] border-y border-honey/25 relative overflow-hidden"
@@ -233,72 +236,78 @@ export const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Card 1: Puppies in Dubai */}
-            <div className="bg-white rounded-4xl p-6 sm:p-8 shadow-soft border border-honey/30 flex flex-col justify-between group hover:shadow-lift transition-all relative">
-              <div>
-                <div className="relative aspect-video rounded-3xl overflow-hidden mb-6 bg-honey/10">
-                  <img
-                    src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80"
-                    alt="Puppies in our Dubai Showroom"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-milk/95 text-toffee text-xs font-bold px-3 py-1.5 rounded-full shadow-xs border border-toffee/20">
-                    In our showroom
+            {/* Card 1: Puppies in Dubai (Pomeranian Peeker) */}
+            <div className="relative pt-6 flex flex-col h-full">
+              <CardPeekerPup breed="Pomeranian" position="top-right" />
+              <div className="relative z-10 bg-white rounded-4xl p-6 sm:p-8 shadow-soft border border-honey/30 flex flex-col justify-between group hover:shadow-lift transition-all flex-1">
+                <div>
+                  <div className="relative aspect-video rounded-3xl overflow-hidden mb-6 bg-honey/10">
+                    <img
+                      src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=80"
+                      alt="Puppies in our Dubai Showroom"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 bg-milk/95 text-toffee text-xs font-bold px-3 py-1.5 rounded-full shadow-xs border border-toffee/20">
+                      In our showroom
+                    </div>
                   </div>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cocoa mb-3">
+                    Puppies in Dubai
+                  </h3>
+                  <p className="text-cocoa-soft text-sm sm:text-base leading-relaxed mb-6">
+                    Experience love at first cuddle! Visit our private boutique showroom in Downtown Dubai to meet our available puppies in person, play with them, and take your puppy home the very same day.
+                  </p>
                 </div>
 
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cocoa mb-3">
-                  Puppies in Dubai
-                </h3>
-                <p className="text-cocoa-soft text-sm sm:text-base leading-relaxed mb-6">
-                  Experience love at first cuddle! Visit our private boutique showroom in Downtown Dubai to meet our available puppies in person, play with them, and take your puppy home the very same day.
-                </p>
+                <Link
+                  to="/puppies?origin=local"
+                  className="inline-flex items-center justify-center gap-2 bg-honey/30 hover:bg-honey/60 text-cocoa font-bold px-6 py-3.5 rounded-full text-sm transition-all border border-honey/40"
+                >
+                  <span>View Showroom Puppies</span>
+                  <ArrowRight className="w-4 h-4 text-toffee" />
+                </Link>
               </div>
-
-              <Link
-                to="/puppies?origin=local"
-                className="inline-flex items-center justify-center gap-2 bg-honey/30 hover:bg-honey/60 text-cocoa font-bold px-6 py-3.5 rounded-full text-sm transition-all border border-honey/40"
-              >
-                <span>View Showroom Puppies</span>
-                <ArrowRight className="w-4 h-4 text-toffee" />
-              </Link>
             </div>
 
-            {/* Card 2: Imported for you */}
-            <div className="bg-white rounded-4xl p-6 sm:p-8 shadow-soft border border-honey/30 flex flex-col justify-between group hover:shadow-lift transition-all relative">
-              <div>
-                <div className="relative aspect-video rounded-3xl overflow-hidden mb-6 bg-sky/10">
-                  <img
-                    src="https://images.unsplash.com/photo-1583511666407-5f06533f2113?auto=format&fit=crop&w=1000&q=80"
-                    alt="Imported Teacup Puppies from Korea"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-sky/95 text-sky-deep text-xs font-bold px-3 py-1.5 rounded-full shadow-xs border border-sky-deep/20">
-                    Korea → Dubai
+            {/* Card 2: Imported for you (Poodle Peeker) */}
+            <div className="relative pt-6 flex flex-col h-full">
+              <CardPeekerPup breed="Poodle" position="top-left" />
+              <div className="relative z-10 bg-white rounded-4xl p-6 sm:p-8 shadow-soft border border-honey/30 flex flex-col justify-between group hover:shadow-lift transition-all flex-1">
+                <div>
+                  <div className="relative aspect-video rounded-3xl overflow-hidden mb-6 bg-sky/10">
+                    <img
+                      src="https://images.unsplash.com/photo-1583511666407-5f06533f2113?auto=format&fit=crop&w=1000&q=80"
+                      alt="Imported Teacup Puppies from Korea"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 bg-sky/95 text-sky-deep text-xs font-bold px-3 py-1.5 rounded-full shadow-xs border border-sky-deep/20">
+                      Korea → Dubai
+                    </div>
                   </div>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cocoa mb-3">
+                    Imported for you
+                  </h3>
+                  <p className="text-cocoa-soft text-sm sm:text-base leading-relaxed mb-6">
+                    Exclusive Korean teacup puppies with signature teddy-bear faces and ultra-compact proportions. Hand-selected from elite South Korean breeders, with full veterinary flight passports and door-to-door delivery.
+                  </p>
                 </div>
 
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-cocoa mb-3">
-                  Imported for you
-                </h3>
-                <p className="text-cocoa-soft text-sm sm:text-base leading-relaxed mb-6">
-                  Exclusive Korean teacup puppies with signature teddy-bear faces and ultra-compact proportions. Hand-selected from elite South Korean breeders, with full veterinary flight passports and door-to-door delivery.
-                </p>
+                <Link
+                  to="/puppies?origin=imported"
+                  className="inline-flex items-center justify-center gap-2 bg-sky/30 hover:bg-sky/60 text-sky-deep font-bold px-6 py-3.5 rounded-full text-sm transition-all border border-sky-deep/30"
+                >
+                  <span>Explore Korean Imports</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
-
-              <Link
-                to="/puppies?origin=imported"
-                className="inline-flex items-center justify-center gap-2 bg-sky/30 hover:bg-sky/60 text-sky-deep font-bold px-6 py-3.5 rounded-full text-sm transition-all border border-sky-deep/30"
-              >
-                <span>Explore Korean Imports</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. YOUR PUPPY JOURNEY */}
+      {/* 4. YOUR PUPPY JOURNEY (PEEKING DOGS BEHIND JOURNEY CARDS) */}
       <section
         id="journey-section"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
@@ -314,52 +323,61 @@ export const HomePage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Step 1 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
-            <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
-              01
-            </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
-              🐾
+          {/* Step 1 (Maltipoo Peeker) */}
+          <div className="relative pt-6 flex flex-col h-full">
+            <CardPeekerPup breed="Maltipoo" position="top-right" />
+            <div className="relative z-10 bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft flex flex-col flex-1 group hover:shadow-lift transition-all hover:-translate-y-1">
+              <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
+                01
+              </span>
+              <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
+                🐾
+              </div>
+              <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
+                Choose your breed
+              </h3>
+              <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
+                Explore our verified listings of teacup Maltipoo, Poodle, Pomeranian, Cavapoo, and Shih Tzu. Tell us your preference for size, gender, and temperament.
+              </p>
             </div>
-            <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
-              Choose your breed
-            </h3>
-            <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
-              Explore our verified listings of teacup Maltipoo, Poodle, Pomeranian, Cavapoo, and Shih Tzu. Tell us your preference for size, gender, and temperament.
-            </p>
           </div>
 
-          {/* Step 2 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
-            <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
-              02
-            </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
-              📱
+          {/* Step 2 (Cavapoo Peeker) */}
+          <div className="relative pt-6 flex flex-col h-full">
+            <CardPeekerPup breed="Cavapoo" position="top-center" />
+            <div className="relative z-10 bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft flex flex-col flex-1 group hover:shadow-lift transition-all hover:-translate-y-1">
+              <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
+                02
+              </span>
+              <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
+                📱
+              </div>
+              <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
+                Get photos & details
+              </h3>
+              <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
+                We connect on WhatsApp to send live HD videos, parental lineage, weight charts, and veterinary health records. You can also book a showroom visit.
+              </p>
             </div>
-            <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
-              Get photos & details
-            </h3>
-            <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
-              We connect on WhatsApp to send live HD videos, parental lineage, weight charts, and veterinary health records. You can also book a showroom visit.
-            </p>
           </div>
 
-          {/* Step 3 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
-            <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
-              03
-            </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
-              🏡
+          {/* Step 3 (Shih Tzu Peeker) */}
+          <div className="relative pt-6 flex flex-col h-full">
+            <CardPeekerPup breed="Shih Tzu" position="top-left" />
+            <div className="relative z-10 bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft flex flex-col flex-1 group hover:shadow-lift transition-all hover:-translate-y-1">
+              <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
+                03
+              </span>
+              <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
+                🏡
+              </div>
+              <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
+                Secure & safe delivery
+              </h3>
+              <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
+                Pick up your baby from our Downtown Dubai showroom, or enjoy our white-glove chauffeur delivery to your doorstep across the UAE & worldwide.
+              </p>
             </div>
-            <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
-              Secure & safe delivery
-            </h3>
-            <p className="text-xs sm:text-sm text-cocoa-soft leading-relaxed">
-              Pick up your baby from our Downtown Dubai showroom, or enjoy our white-glove chauffeur delivery to your doorstep across the UAE & worldwide.
-            </p>
           </div>
         </div>
 

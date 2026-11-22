@@ -211,8 +211,8 @@ export const PuppiesPage = () => {
         </div>
       ) : filteredPuppies.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredPuppies.map((puppy) => (
-            <PuppyCard key={puppy._id || puppy.slug} puppy={puppy} />
+          {filteredPuppies.map((puppy, idx) => (
+            <PuppyCard key={puppy._id || puppy.slug} puppy={puppy} index={idx} />
           ))}
         </div>
       ) : (
