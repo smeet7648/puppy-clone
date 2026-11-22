@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -10,7 +10,10 @@ import {
   Award,
   ChevronDown,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Play,
+  Pause,
+  Video
 } from 'lucide-react';
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
@@ -27,6 +30,21 @@ export const HomePage = () => {
   const [faqs, setFaqs] = useState([]);
   const [activeFaq, setActiveFaq] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Background Video State
+  const [videoPlaying, setVideoPlaying] = useState(true);
+  const videoRef = useRef(null);
+
+  const toggleVideoPlay = () => {
+    if (!videoRef.current) return;
+    if (videoPlaying) {
+      videoRef.current.pause();
+      setVideoPlaying(false);
+    } else {
+      videoRef.current.play();
+      setVideoPlaying(true);
+    }
+  };
 
   useEffect(() => {
     const loadHomeData = async () => {
@@ -68,11 +86,52 @@ export const HomePage = () => {
         description="Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide. Maltipoo, Pomeranian, Poodle, Cavapoo, Shih Tzu."
       />
 
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION WITH LUXURY BACKGROUND DOGS VIDEO */}
       <section
         id="hero-section"
-        className="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden bg-gradient-to-b from-[#fefaf3] via-milk to-milk"
+        className="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden"
       >
+        {/* Full-Cover Background Puppy Video */}
+        <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-center scale-105 filter opacity-40 brightness-105"
+          >
+            <source src="/videos/puppies-bg.webm" type="video/webm" />
+            <source src="/videos/puppy-bg-480.webm" type="video/webm" />
+          </video>
+          {/* Luxury Warm Scrim & Radial Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#fefaf3]/85 via-milk/80 to-milk" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(255,253,248,0.85)_100%)]" />
+        </div>
+
+        {/* Ambient Video Control Badge */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-20">
+          <button
+            type="button"
+            onClick={toggleVideoPlay}
+            className="inline-flex items-center gap-1.5 bg-white/80 hover:bg-white backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-cocoa hover:text-toffee shadow-xs border border-honey/30 transition hover:scale-105"
+            title={videoPlaying ? "Pause background puppy video" : "Play background puppy video"}
+          >
+            {videoPlaying ? (
+              <>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="hidden sm:inline font-scrawl text-toffee">puppies playing live</span>
+                <Pause className="w-3.5 h-3.5 text-toffee" />
+              </>
+            ) : (
+              <>
+                <Play className="w-3.5 h-3.5 text-toffee fill-current" />
+                <span className="font-scrawl text-toffee">resume video</span>
+              </>
+            )}
+          </button>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           
           {/* Small label */}
@@ -80,7 +139,7 @@ export const HomePage = () => {
             initial={{ scale: 0, rotate: -6 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: 'spring', stiffness: 220, damping: 14 }}
-            className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs"
+            className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs backdrop-blur-xs"
           >
             <span className="w-2 h-2 rounded-full bg-toffee animate-pulse" />
             <span className="font-scrawl text-toffee text-sm sm:text-base font-semibold">
@@ -93,7 +152,7 @@ export const HomePage = () => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 180, damping: 16 }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight max-w-4xl mx-auto leading-[1.1]"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight max-w-4xl mx-auto leading-[1.1] drop-shadow-xs"
           >
             Premium teacup puppies in <span className="text-toffee italic">Dubai</span>
           </motion.h1>
@@ -103,7 +162,7 @@ export const HomePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed"
+            className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed font-medium"
           >
             Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide.
           </motion.p>
@@ -135,7 +194,7 @@ export const HomePage = () => {
           </motion.div>
 
           {/* Trust badges strip under hero */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-medium">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-semibold">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-toffee" />
               <span>100% Health Checked & Vaccinated</span>
@@ -152,7 +211,7 @@ export const HomePage = () => {
         </div>
 
         {/* Carousel marquee */}
-        <div className="mt-12 md:mt-16 overflow-hidden py-4 border-y border-honey/20 bg-milk/60">
+        <div className="mt-12 md:mt-16 overflow-hidden py-4 border-y border-honey/20 bg-milk/70 backdrop-blur-xs">
           <div className="flex animate-marquee gap-5">
             {[...marqueePuppies, ...marqueePuppies].map((pup, index) => {
               const imgUrl = (pup.images && pup.images[0]) || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80';
@@ -242,7 +301,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 3. TWO WAYS TO MEET YOUR PUPPY (SLIDES IN: CARD 1 FROM LEFT, CARD 2 FROM RIGHT) */}
+      {/* 3. TWO WAYS TO MEET YOUR PUPPY */}
       <section
         id="two-ways-section"
         className="py-16 md:py-20 bg-[#fdf9f2] border-y border-honey/25 relative overflow-hidden"
@@ -261,7 +320,7 @@ export const HomePage = () => {
           </CartoonSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Card 1: Puppies in Dubai (Slides in from LEFT) */}
+            {/* Card 1: Puppies in Dubai */}
             <CartoonSection direction="left" delay={0.1}>
               <div className="relative pt-6 flex flex-col h-full">
                 <CardPeekerPup breed="Pomeranian" position="top-right" />
@@ -297,7 +356,7 @@ export const HomePage = () => {
               </div>
             </CartoonSection>
 
-            {/* Card 2: Imported for you (Slides in from RIGHT) */}
+            {/* Card 2: Imported for you */}
             <CartoonSection direction="right" delay={0.2}>
               <div className="relative pt-6 flex flex-col h-full">
                 <CardPeekerPup breed="Poodle" position="top-left" />
@@ -336,7 +395,51 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 4. YOUR PUPPY JOURNEY (CARTOON POP REVEAL FOR EACH STEP) */}
+      {/* 4. DEDICATED SHOWROOM PLAYROOM VIDEO BANNER */}
+      <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CartoonSection direction="pop">
+          <div className="relative rounded-4xl overflow-hidden shadow-2xl border-4 border-white aspect-[21/9] sm:aspect-[21/8] min-h-[280px]">
+            {/* Live Playroom Video Loop */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src="/videos/puppies-bg.webm" type="video/webm" />
+              <source src="/videos/puppy-bg-480.webm" type="video/webm" />
+            </video>
+
+            {/* Glassmorphic Overlay with VIP Concierge invitation */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cocoa/90 via-cocoa/40 to-transparent flex items-center p-6 sm:p-12">
+              <div className="max-w-md text-milk">
+                <span className="inline-flex items-center gap-1.5 bg-honey/30 text-honey px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 border border-honey/40">
+                  <span className="w-2 h-2 rounded-full bg-honey animate-ping" />
+                  Live Showroom Cuddles
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-milk mb-2 leading-tight">
+                  See our teacup puppies playing live
+                </h3>
+                <p className="text-xs sm:text-sm text-milk/80 mb-5 leading-relaxed">
+                  Every puppy is raised with love, socialization, and pristine hygiene. Schedule an interactive WhatsApp video call to see them play right now.
+                </p>
+                <a
+                  href={getWhatsAppLink("Hi TeddyPups! I watched your showroom video. Can I book a live video call to see available puppies?")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-lift transition hover:scale-105 active:scale-95"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Request Live Video Call</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </CartoonSection>
+      </section>
+
+      {/* 5. YOUR PUPPY JOURNEY */}
       <section
         id="journey-section"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
@@ -458,7 +561,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 5. WHY FAMILIES TRUST TEDDYPUPS (SLIDES IN FROM LEFT) */}
+      {/* 6. WHY FAMILIES TRUST TEDDYPUPS */}
       <section
         id="trust-section"
         className="py-16 md:py-24 bg-cocoa text-milk relative overflow-hidden"
@@ -540,7 +643,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 6. HAPPY FAMILIES & TESTIMONIALS (SLIDES IN FROM RIGHT) */}
+      {/* 7. HAPPY FAMILIES & TESTIMONIALS */}
       <section
         id="happy-families-section"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
@@ -612,7 +715,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 7. FAQ PREVIEW (SLIDES IN FROM LEFT) */}
+      {/* 8. FAQ PREVIEW */}
       <section
         id="faq-preview-section"
         className="py-16 md:py-20 bg-[#fefaf3] border-t border-honey/25 relative"
@@ -667,7 +770,7 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 8. FINAL CTA SECTION (CARTOON POP IN) */}
+      {/* 9. FINAL CTA SECTION */}
       <section
         id="final-cta-section"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
