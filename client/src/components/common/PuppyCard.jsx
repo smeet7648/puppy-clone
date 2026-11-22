@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Play, Sparkles, Heart, MessageCircle } from 'lucide-react';
@@ -6,6 +6,7 @@ import { useSettings } from '../../context/SettingsContext';
 
 export const PuppyCard = ({ puppy }) => {
   const { getWhatsAppLink } = useSettings();
+  const [isHovered, setIsHovered] = useState(false);
 
   const isAvailable = puppy.status === 'available';
   const isReserved = puppy.status === 'reserved';
@@ -22,9 +23,19 @@ export const PuppyCard = ({ puppy }) => {
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-30px' }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+      whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.25 } }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="group relative bg-white rounded-3xl overflow-hidden border border-honey/20 shadow-soft hover:shadow-lift flex flex-col"
     >
+      {/* Small paw-heart popup in corner on hover */}
+      {isHovered && (
+        <div className="absolute top-3 right-3 z-30 pointer-events-none animate-paw-heart flex items-center gap-1 bg-white/95 px-2.5 py-1 rounded-full shadow-lg border border-honey/40 text-[11px] font-bold text-toffee">
+          <span>🐾</span>
+          <span className="text-red-500">❤️</span>
+        </div>
+      )}
+
       {/* Decorative cute puppy ears that pop up on card hover */}
       <div className="absolute -top-3 left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1 z-10 pointer-events-none">
         <span className="text-sm">🐾</span>

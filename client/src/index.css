@@ -204,4 +204,44 @@
   animation: slide-in-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* 3D Gold Stamp animation */
+@keyframes stamp {
+  0% { opacity: 0; transform: scale(2.8) rotate(-24deg); }
+  65% { opacity: 1; transform: scale(0.92) rotate(-5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+}
+.animate-stamp {
+  animation: stamp 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Flight dash trail */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+.animate-dash {
+  animation: dash 2.8s linear infinite;
+}
+
+/* Paw Heart Pop on Hover */
+@keyframes paw-heart {
+  0% { transform: scale(0) translateY(4px); opacity: 0; }
+  40% { transform: scale(1.2) translateY(-12px); opacity: 1; }
+  100% { transform: scale(1) translateY(-26px); opacity: 0; }
+}
+.animate-paw-heart {
+  animation: paw-heart 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Airplane gentle wobble */
+@keyframes flight-wobble {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(3deg); }
+}
+.animate-flight-wobble {
+  animation: flight-wobble 2s ease-in-out infinite;
+}
+
+
 
