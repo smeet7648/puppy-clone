@@ -21,6 +21,38 @@
   }
 }
 
+/* Custom Dog Paw Cursor for Desktop / Fine Pointers */
+@media (pointer: fine) {
+  html, body {
+    cursor: url('/cursors/paw-default.svg') 12 12, auto;
+  }
+
+  a, button, input[type="submit"], input[type="button"], [role="button"], select, .cursor-pointer, [data-clickable="true"] {
+    cursor: url('/cursors/paw-pointer.svg') 14 14, pointer !important;
+  }
+}
+
+/* Lenis Butter-Smooth Scroll System */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

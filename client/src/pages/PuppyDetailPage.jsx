@@ -74,6 +74,8 @@ export const PuppyDetailPage = () => {
         description={`Meet ${puppy.name}, a gorgeous teacup ${puppy.breed} in Dubai. ${puppy.description}`}
         image={currentImage}
         slug={`/puppies/${puppy.slug}`}
+        type="product"
+        puppyData={puppy}
       />
 
       {/* Breadcrumb */}

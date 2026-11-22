@@ -7,6 +7,9 @@ import { Footer } from './components/common/Footer';
 import { FloatingWhatsAppWidget } from './components/common/FloatingWhatsAppWidget';
 import { MobileStickyBar } from './components/common/MobileStickyBar';
 import { RandomDogPopups } from './components/common/RandomDogPopups';
+import { ScrollToTop } from './components/common/ScrollToTop';
+import { PawCursor } from './components/common/PawCursor';
+import { useLenis } from './hooks/useLenis';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -86,8 +89,18 @@ const PublicLayout = ({ children }) => {
 };
 
 export const App = () => {
+  // Activate luxury smooth momentum scrolling
+  useLenis();
+
   return (
-    <Routes>
+    <>
+      {/* Scroll-to-top handler on every link click & route navigation */}
+      <ScrollToTop />
+
+      {/* Interactive custom dog paw cursor & click stamps */}
+      <PawCursor />
+
+      <Routes>
       {/* Admin Login */}
       <Route path="/admin/login" element={<AdminLogin />} />
 
@@ -178,7 +191,8 @@ export const App = () => {
       {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-  );
+  </>
+);
 };
 
 export default App;
