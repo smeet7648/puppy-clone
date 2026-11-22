@@ -1,0 +1,14 @@
+{
+  "name": "teddypups",
+  "version": "1.0.0",
+  "description": "TeddyPups Dubai - Premium Puppy Showcase & Concierge Enquiry Platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "seed": "node server/seed.js"
+  }
+}

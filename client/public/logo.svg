@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Outer warm glow -->
+  <circle cx="50" cy="50" r="46" fill="#fdf7ef" stroke="#f2be6b" stroke-width="2"/>
+  
+  <!-- Bear / Puppy Ears -->
+  <circle cx="30" cy="30" r="13" fill="#c2622b" />
+  <circle cx="30" cy="30" r="7" fill="#fbe3b4" />
+  <circle cx="70" cy="30" r="13" fill="#c2622b" />
+  <circle cx="70" cy="30" r="7" fill="#fbe3b4" />
+  
+  <!-- Head -->
+  <ellipse cx="50" cy="55" rx="30" ry="26" fill="#c2622b" />
+  
+  <!-- Snout / muzzle -->
+  <ellipse cx="50" cy="62" rx="15" ry="12" fill="#fffdf8" />
+  
+  <!-- Eyes -->
+  <circle cx="39" cy="49" r="4.5" fill="#2a170e" />
+  <circle cx="41" cy="47" r="1.5" fill="#ffffff" />
+  
+  <circle cx="61" cy="49" r="4.5" fill="#2a170e" />
+  <circle cx="63" cy="47" r="1.5" fill="#ffffff" />
+  
+  <!-- Nose -->
+  <ellipse cx="50" cy="59" rx="4.5" ry="3.5" fill="#2a170e" />
+  
+  <!-- Mouth -->
+  <path d="M47 64 Q50 67 53 64" fill="none" stroke="#2a170e" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Cheeks -->
+  <circle cx="34" cy="58" r="4" fill="#f9cdbf" opacity="0.8" />
+  <circle cx="66" cy="58" r="4" fill="#f9cdbf" opacity="0.8" />
+</svg>
