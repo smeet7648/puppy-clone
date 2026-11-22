@@ -1,10 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AnnouncementStrip } from './components/common/AnnouncementStrip';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsAppWidget } from './components/common/FloatingWhatsAppWidget';
 import { MobileStickyBar } from './components/common/MobileStickyBar';
+import { RandomDogPopups } from './components/common/RandomDogPopups';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -43,26 +45,47 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Public Layout Wrapper
+// Public Layout Wrapper with Cartoon Page Transitions & Random Dog Popups
 const PublicLayout = ({ children }) => {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen flex flex-col bg-milk text-cocoa relative overflow-x-hidden">
       <AnnouncementStrip />
       <Header />
-      <main id="main-content" className="flex-1">
-        {children}
+      
+      {/* Cartoon Page Transition: Appears from Left to Right */}
+      <main id="main-content" className="flex-1 overflow-x-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, x: -70, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 70, scale: 0.98 }}
+            transition={{
+              type: 'spring',
+              stiffness: 170,
+              damping: 18,
+              mass: 0.8
+            }}
+            className="w-full h-full"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
       </main>
+
       <Footer />
       <FloatingWhatsAppWidget />
       <MobileStickyBar />
+
+      {/* Random Cartoon Dog Popups on ALL pages (gone in 2 sec) */}
+      <RandomDogPopups />
     </div>
   );
 };
 
 export const App = () => {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-
   return (
     <Routes>
       {/* Admin Login */}

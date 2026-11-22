@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { MessageCircle, ShieldCheck, Plane, Truck, Heart, CheckCircle2, MapPin, Sparkles, Clock } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
+import { CartoonSection } from '../components/common/CartoonSection';
 import { SEO } from '../components/common/SEO';
 
 export const HowItWorksPage = () => {
@@ -28,102 +29,110 @@ export const HowItWorksPage = () => {
       />
 
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <span className="font-scrawl text-toffee text-lg">transparent concierge</span>
-        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-cocoa mt-1">
-          How it works
-        </h1>
-        <p className="mt-3 text-cocoa-soft text-base sm:text-lg leading-relaxed">
-          From initial consultation to bringing your puppy home, every step is built around transparency, health, and peace of mind.
-        </p>
-      </div>
+      <CartoonSection direction="pop">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="font-scrawl text-toffee text-lg">transparent concierge</span>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-cocoa mt-1">
+            How it works
+          </h1>
+          <p className="mt-3 text-cocoa-soft text-base sm:text-lg leading-relaxed">
+            From initial consultation to bringing your puppy home, every step is built around transparency, health, and peace of mind.
+          </p>
+        </div>
+      </CartoonSection>
 
       {/* 3 Step Journey Detailed */}
       <div className="mb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Step 1 */}
-          <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between">
-            <div>
-              <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
-                01
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
-                Choose your breed
-              </h3>
-              <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
-                Browse our real-time listings of teacup Maltipoo, Pomeranian, Poodle, Cavapoo, and Shih Tzu. Tell us about your home, family lifestyle, and preferred gender or coat color.
-              </p>
-              <ul className="text-xs text-cocoa-soft space-y-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Real photos & current weights</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Temperament & size projection</span>
-                </li>
-              </ul>
+          <CartoonSection direction="left" delay={0.1}>
+            <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between h-full">
+              <div>
+                <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
+                  01
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
+                  Choose your breed
+                </h3>
+                <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
+                  Browse our real-time listings of teacup Maltipoo, Pomeranian, Poodle, Cavapoo, and Shih Tzu. Tell us about your home, family lifestyle, and preferred gender or coat color.
+                </p>
+                <ul className="text-xs text-cocoa-soft space-y-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Real photos & current weights</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Temperament & size projection</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="mt-6 pt-4 border-t border-honey/15">
+                <span className="text-xs font-bold text-toffee">Step 1 of 3</span>
+              </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-honey/15">
-              <span className="text-xs font-bold text-toffee">Step 1 of 3</span>
-            </div>
-          </div>
+          </CartoonSection>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between">
-            <div>
-              <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
-                02
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
-                Get photos & details
-              </h3>
-              <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
-                Connect directly with our concierge on WhatsApp. We send multiple 4K videos, close-ups of paws and teeth, parental health lineage, and recent veterinary reports.
-              </p>
-              <ul className="text-xs text-cocoa-soft space-y-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Live HD video call option</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Showroom visit appointment</span>
-                </li>
-              </ul>
+          <CartoonSection direction="pop" delay={0.2}>
+            <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between h-full">
+              <div>
+                <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
+                  02
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
+                  Get photos & details
+                </h3>
+                <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
+                  Connect directly with our concierge on WhatsApp. We send multiple 4K videos, close-ups of paws and teeth, parental health lineage, and recent veterinary reports.
+                </p>
+                <ul className="text-xs text-cocoa-soft space-y-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Live HD video call option</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Showroom visit appointment</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="mt-6 pt-4 border-t border-honey/15">
+                <span className="text-xs font-bold text-toffee">Step 2 of 3</span>
+              </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-honey/15">
-              <span className="text-xs font-bold text-toffee">Step 2 of 3</span>
-            </div>
-          </div>
+          </CartoonSection>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between">
-            <div>
-              <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
-                03
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
-                Secure & safe delivery
-              </h3>
-              <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
-                Pick up your puppy at our Downtown Dubai boutique or enjoy our white-glove chauffeur delivery across the UAE. Each puppy arrives with official passport and starter kit.
-              </p>
-              <ul className="text-xs text-cocoa-soft space-y-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Doorstep delivery in climate-controlled luxury</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
-                  <span>Lifetime 24/7 care hotline</span>
-                </li>
-              </ul>
+          <CartoonSection direction="right" delay={0.3}>
+            <div className="bg-white rounded-4xl p-8 border border-honey/25 shadow-soft relative flex flex-col justify-between h-full">
+              <div>
+                <span className="font-serif text-6xl font-black text-honey/25 select-none block mb-4">
+                  03
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-cocoa mb-3">
+                  Secure & safe delivery
+                </h3>
+                <p className="text-sm text-cocoa-soft leading-relaxed mb-4">
+                  Pick up your puppy at our Downtown Dubai boutique or enjoy our white-glove chauffeur delivery across the UAE. Each puppy arrives with official passport and starter kit.
+                </p>
+                <ul className="text-xs text-cocoa-soft space-y-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Doorstep delivery in climate-controlled luxury</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-toffee" />
+                    <span>Lifetime 24/7 care hotline</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="mt-6 pt-4 border-t border-honey/15">
+                <span className="text-xs font-bold text-toffee">Step 3 of 3</span>
+              </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-honey/15">
-              <span className="text-xs font-bold text-toffee">Step 3 of 3</span>
-            </div>
-          </div>
+          </CartoonSection>
         </div>
       </div>
 
