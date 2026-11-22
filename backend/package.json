@@ -1,5 +1,5 @@
 {
-  "name": "teddypups-server",
+  "name": "teddypups-backend",
   "version": "1.0.0",
   "description": "Backend API for TeddyPups Dubai",
   "main": "server.js",

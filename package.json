@@ -5,10 +5,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server/server.js",
-    "dev:server": "npm --prefix server run dev",
-    "dev:client": "npm --prefix client run dev",
-    "build": "npm --prefix client run build",
-    "seed": "node server/seed.js"
+    "start": "node backend/server.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:server": "npm --prefix backend run dev",
+    "dev:client": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "seed": "node backend/seed.js"
   }
 }

@@ -13,7 +13,7 @@ export const connectDB = async () => {
     console.log('✅ MongoDB connected successfully to:', uri);
   } catch (error) {
     isMongoConnected = false;
-    console.warn('⚠️ MongoDB connection not available. Falling back to robust persistent file storage (server/data/database.json).');
+    console.warn('⚠️ MongoDB connection not available. Falling back to robust persistent file storage (backend/data/database.json).');
   }
 };
 

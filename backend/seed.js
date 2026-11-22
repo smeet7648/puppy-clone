@@ -138,7 +138,7 @@ export async function autoSeedIfEmpty({ force = false } = {}) {
   }
 }
 
-// Detect direct CLI execution (e.g. `node server/seed.js` or `npm run seed`)
+// Detect direct CLI execution (e.g. `node backend/seed.js` or `npm run seed`)
 const currentFile = fileURLToPath(import.meta.url);
 const entryFile = process.argv[1] ? path.resolve(process.argv[1]) : '';
 if (entryFile && currentFile === entryFile) {
