@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { MessageCircle, Menu, X, Sparkles } from 'lucide-react';
+import { MessageCircle, Menu, X } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 import { MobileMenu } from './MobileMenu';
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoPuppyWave, setLogoPuppyWave] = useState(false);
   const { settings, getWhatsAppLink } = useSettings();
   const location = useLocation();
-
-  useEffect(() => {
-    // Pop up out of the top of the logo once per session
-    const hasWaved = sessionStorage.getItem('teddypups_logo_wave');
-    if (!hasWaved) {
-      const timer = setTimeout(() => {
-        setLogoPuppyWave(true);
-        sessionStorage.setItem('teddypups_logo_wave', 'true');
-        setTimeout(() => setLogoPuppyWave(false), 4000);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -61,26 +47,12 @@ export const Header = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo with Pop-up Waving Puppy */}
+            {/* Logo */}
             <Link
               to="/"
-              onMouseEnter={() => setLogoPuppyWave(true)}
-              onMouseLeave={() => setLogoPuppyWave(false)}
-              className="flex items-center gap-3 group focus:outline-none relative"
+              className="flex items-center gap-3 group focus:outline-none"
             >
-              {/* Animated Pop-up Puppy from top of logo */}
-              <div
-                className={`absolute -top-6 left-2 transition-all duration-300 pointer-events-none z-20 ${
-                  logoPuppyWave ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-75'
-                }`}
-              >
-                <div className="flex items-center gap-1 bg-white px-2 py-0.5 rounded-full shadow-md border border-honey/40 text-[10px] font-bold text-toffee">
-                  <span className="animate-wiggle-fast">👋</span>
-                  <span>Woof!</span>
-                </div>
-              </div>
-
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-honey shadow-sm group-hover:scale-105 transition-transform bg-[#fdf7ef] p-0.5 relative">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-honey shadow-sm group-hover:scale-105 transition-transform bg-[#fdf7ef] p-0.5">
                 <img src="/logo.svg" alt="TeddyPups Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">

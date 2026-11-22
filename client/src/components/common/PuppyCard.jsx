@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Play, Sparkles, Heart, MessageCircle } from 'lucide-react';
+import { Play, MessageCircle } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
 export const PuppyCard = ({ puppy }) => {
   const { getWhatsAppLink } = useSettings();
-  const [isHovered, setIsHovered] = useState(false);
 
   const isAvailable = puppy.status === 'available';
   const isReserved = puppy.status === 'reserved';
@@ -19,34 +18,19 @@ export const PuppyCard = ({ puppy }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-30px' }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.25 } }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 0.4 }}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
       className="group relative bg-white rounded-3xl overflow-hidden border border-honey/20 shadow-soft hover:shadow-lift flex flex-col"
     >
-      {/* Small paw-heart popup in corner on hover */}
-      {isHovered && (
-        <div className="absolute top-3 right-3 z-30 pointer-events-none animate-paw-heart flex items-center gap-1 bg-white/95 px-2.5 py-1 rounded-full shadow-lg border border-honey/40 text-[11px] font-bold text-toffee">
-          <span>🐾</span>
-          <span className="text-red-500">❤️</span>
-        </div>
-      )}
-
-      {/* Decorative cute puppy ears that pop up on card hover */}
-      <div className="absolute -top-3 left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1 z-10 pointer-events-none">
-        <span className="text-sm">🐾</span>
-      </div>
-
       {/* Image Area */}
       <Link to={`/puppies/${puppy.slug}`} className="relative aspect-[4/3] overflow-hidden bg-honey/10 block">
         <img
           src={displayImage}
           alt={`${puppy.name} - ${puppy.breed}`}
-          className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           loading="lazy"
         />
 
@@ -130,7 +114,7 @@ export const PuppyCard = ({ puppy }) => {
               target="_blank"
               rel="noopener noreferrer"
               title="Enquire on WhatsApp"
-              className="p-2 rounded-full bg-toffee text-milk hover:bg-toffee-deep transition shadow-lift hover:scale-110 active:scale-95"
+              className="p-2 rounded-full bg-toffee text-milk hover:bg-toffee-deep transition shadow-lift hover:scale-105 active:scale-95"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
             </a>

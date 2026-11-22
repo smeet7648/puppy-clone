@@ -5,12 +5,6 @@ import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsAppWidget } from './components/common/FloatingWhatsAppWidget';
 import { MobileStickyBar } from './components/common/MobileStickyBar';
-import { WalkingPuppy } from './components/common/WalkingPuppy';
-import { ScrollPopPup } from './components/common/ScrollPopPup';
-import { PawClickEffect } from './components/common/PawClickEffect';
-import { SurprisePopups } from './components/common/SurprisePopups';
-import { PupCrewLayer } from './components/pupcrew/PupCrewLayer';
-import { useLenis } from './hooks/useLenis';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -61,19 +55,11 @@ const PublicLayout = ({ children }) => {
       <Footer />
       <FloatingWhatsAppWidget />
       <MobileStickyBar />
-      <WalkingPuppy />
-      <ScrollPopPup />
-      <SurprisePopups />
-      <PawClickEffect />
-      <PupCrewLayer />
     </div>
   );
 };
 
 export const App = () => {
-  // Initialize Lenis smooth scroll synchronized with GSAP ScrollTrigger
-  useLenis();
-
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
 

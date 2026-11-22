@@ -10,15 +10,12 @@ import {
   Award,
   ChevronDown,
   CheckCircle2,
-  Sparkles,
-  Heart,
-  Play
+  Sparkles
 } from 'lucide-react';
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { PuppyCard } from '../components/common/PuppyCard';
 import { SEO } from '../components/common/SEO';
-import { PoodleSprite, MaltipooSprite, PomeranianSprite, CavapooSprite, ShihTzuSprite } from '../components/pupcrew/PupSprites';
 
 export const HomePage = () => {
   const { settings, getWhatsAppLink } = useSettings();
@@ -62,15 +59,6 @@ export const HomePage = () => {
 
   const previewFaqs = faqs.slice(0, 3);
 
-  // Staggered word animation for Hero Headline
-  const headlineWords = [
-    { text: 'Premium', highlight: false },
-    { text: 'teacup', highlight: false },
-    { text: 'puppies', highlight: false },
-    { text: 'in', highlight: false },
-    { text: 'Dubai', highlight: true }
-  ];
-
   return (
     <div className="relative">
       <SEO
@@ -81,76 +69,48 @@ export const HomePage = () => {
       {/* 1. HERO SECTION */}
       <section
         id="hero-section"
-        data-pup-anchor="hero"
         className="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden bg-gradient-to-b from-[#fefaf3] via-milk to-milk"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           
           {/* Small label */}
-          <div className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs animate-in fade-in duration-500">
-            <span className="w-2 h-2 rounded-full bg-toffee animate-ping" />
+          <div className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-toffee" />
             <span className="font-scrawl text-toffee text-sm sm:text-base font-semibold">
               every puppy is family
             </span>
           </div>
 
-          {/* Staggered H1 Headline */}
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight max-w-4xl mx-auto leading-[1.1] flex flex-wrap justify-center gap-x-3.5 sm:gap-x-4">
-            {headlineWords.map((word, idx) => (
-              <motion.span
-                key={idx}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className={word.highlight ? 'text-toffee italic' : ''}
-              >
-                {word.text}
-              </motion.span>
-            ))}
+          {/* Headline */}
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight max-w-4xl mx-auto leading-[1.1]">
+            Premium teacup puppies in <span className="text-toffee italic">Dubai</span>
           </h1>
 
           {/* Sub-copy */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed"
-          >
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed">
             Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide.
-          </motion.p>
+          </p>
 
-          {/* Two CTAs with Bouncing Paw on Hover */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
+          {/* Two CTAs */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/puppies"
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-full bg-toffee text-milk font-bold text-base shadow-lift hover:bg-toffee-deep hover:shadow-soft-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-toffee text-milk font-bold text-base shadow-lift hover:bg-toffee-deep transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             >
-              {/* Paw bounce on button hover */}
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 text-sm">
-                🐾
-              </span>
               <span>View available puppies</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5" />
             </Link>
 
             <a
               href={getWhatsAppLink("Hi TeddyPups! I would like to enquire about your available teacup puppies.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative w-full sm:w-auto px-8 py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             >
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 text-sm">
-                🐾
-              </span>
               <MessageCircle className="w-5 h-5 fill-current" />
               <span>Enquire on WhatsApp</span>
             </a>
-          </motion.div>
+          </div>
 
           {/* Trust badges strip under hero */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-medium">
@@ -169,7 +129,7 @@ export const HomePage = () => {
           </div>
         </div>
 
-        {/* Rotating / Marquee carousel of 6 puppy photos with name captions */}
+        {/* Carousel marquee */}
         <div className="mt-12 md:mt-16 overflow-hidden py-4 border-y border-honey/20 bg-milk/60">
           <div className="flex animate-marquee gap-5">
             {[...marqueePuppies, ...marqueePuppies].map((pup, index) => {
@@ -184,7 +144,7 @@ export const HomePage = () => {
                     <img
                       src={imgUrl}
                       alt={pup.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-cocoa/90 via-cocoa/20 to-transparent flex flex-col justify-end p-4 text-milk">
                       <span className="font-serif font-bold text-lg leading-tight group-hover:text-honey transition">
@@ -205,19 +165,8 @@ export const HomePage = () => {
       {/* 2. MEET THE PUPS */}
       <section
         id="meet-pups-section"
-        data-pup-anchor="meet-pups"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
       >
-        {/* Playful scroll-triggered puppy mascot peeking over section */}
-        <div className="flex justify-center -mt-20 mb-8 relative z-20">
-          <div className="bg-white/95 backdrop-blur-xs px-5 py-2 rounded-full border border-honey/40 shadow-soft flex items-center gap-2.5 animate-bounce hover:scale-105 transition cursor-pointer">
-            <span className="text-2xl animate-wiggle-fast">🐶</span>
-            <span className="font-scrawl text-toffee text-sm font-bold">
-              peek-a-boo! tap any pup to see video 🐾
-            </span>
-          </div>
-        </div>
-
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center gap-2 text-toffee font-scrawl text-lg mb-2">
@@ -239,7 +188,7 @@ export const HomePage = () => {
           </Link>
         </div>
 
-        {/* Grid of 15 puppies + 1 "Meet them all" tile */}
+        {/* Grid of puppies */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {displayPuppies.map((pup) => (
             <PuppyCard key={pup._id || pup.slug} puppy={pup} />
@@ -267,10 +216,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 3. TWO WAYS TO MEET YOUR PUPPY (WITH ANIMATED FLIGHT PATH) */}
+      {/* 3. TWO WAYS TO MEET YOUR PUPPY */}
       <section
         id="two-ways-section"
-        data-pup-anchor="two-ways"
         className="py-16 md:py-20 bg-[#fdf9f2] border-y border-honey/25 relative overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -282,30 +230,6 @@ export const HomePage = () => {
             <p className="text-cocoa-soft mt-3 text-base">
               Whether you wish to cuddle a puppy today in Dubai or reserve a custom doll-face import from Korea, we ensure a seamless experience.
             </p>
-          </div>
-
-          {/* Animated Flight Path Line between Korea and Dubai */}
-          <div className="hidden lg:block relative h-10 mb-4 select-none pointer-events-none">
-            <svg viewBox="0 0 1000 40" className="w-full h-full">
-              <path
-                d="M 120 20 Q 500 -10 880 20"
-                fill="none"
-                stroke="#bfddf5"
-                strokeWidth="3"
-                strokeDasharray="6 6"
-                className="animate-dash"
-              />
-              {/* Little traveling airplane */}
-              <g className="animate-flight-wobble" transform="translate(500, 8)">
-                <text fontSize="18">✈️</text>
-              </g>
-            </svg>
-            <div className="absolute top-0 left-28 text-xs font-bold text-sky-deep font-scrawl">
-              Seoul, Korea 🇰🇷
-            </div>
-            <div className="absolute top-0 right-28 text-xs font-bold text-toffee font-scrawl">
-              Downtown Dubai 🇦🇪
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -374,10 +298,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 4. YOUR PUPPY JOURNEY (3 STEPS WITH CONNECTING PATH) */}
+      {/* 4. YOUR PUPPY JOURNEY */}
       <section
         id="journey-section"
-        data-pup-anchor="journey"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
       >
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -440,14 +363,6 @@ export const HomePage = () => {
           </div>
         </div>
 
-        {/* Animated paw-print trail between steps */}
-        <div className="hidden md:flex items-center justify-center gap-12 my-6 text-honey text-base select-none">
-          <span className="animate-bounce" style={{ animationDelay: '0ms' }}>🐾</span>
-          <span className="animate-bounce" style={{ animationDelay: '200ms' }}>🐾</span>
-          <span className="animate-bounce" style={{ animationDelay: '400ms' }}>🐾</span>
-          <span className="animate-bounce" style={{ animationDelay: '600ms' }}>🐾</span>
-        </div>
-
         {/* CTA row with showroom preview & buttons */}
         <div className="mt-12 bg-honey/15 rounded-4xl p-6 sm:p-8 border border-honey/30 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -488,10 +403,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 5. WHY FAMILIES TRUST TEDDYPUPS ("PUPPY PASSPORT" MOTIF) */}
+      {/* 5. WHY FAMILIES TRUST TEDDYPUPS */}
       <section
         id="trust-section"
-        data-pup-anchor="trust"
         className="py-16 md:py-24 bg-cocoa text-milk relative overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -503,17 +417,6 @@ export const HomePage = () => {
             <p className="text-milk/75 mt-3 text-base">
               Every pup arrives with our signature Puppy Passport: certified health, verified origin, and lifetime care.
             </p>
-          </div>
-
-          {/* Luxury Gold Puppy Passport Stamp Seal */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400/20 via-honey/20 to-amber-500/20 border-2 border-honey/60 px-5 py-2.5 rounded-full shadow-lg animate-stamp">
-              <span className="text-honey text-xl">🛡️</span>
-              <span className="font-scrawl text-honey font-bold text-sm sm:text-base">
-                OFFICIAL PUPPY PASSPORT & HEALTH GUARANTEE
-              </span>
-              <span className="text-honey text-xl">🐾</span>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -572,10 +475,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 6. HAPPY FAMILIES & TESTIMONIALS (POLAROID TILT STYLE) */}
+      {/* 6. HAPPY FAMILIES & TESTIMONIALS */}
       <section
         id="happy-families-section"
-        data-pup-anchor="happy-families"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
       >
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -607,33 +509,28 @@ export const HomePage = () => {
           </div>
         </div>
 
-        {/* 8 Customer photos grid with polaroid tilt */}
+        {/* Customer photos grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-          {(happyFamilies.slice(0, 8)).map((photo, i) => {
-            const tiltAngles = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-3', '-rotate-3', 'rotate-1', '-rotate-2', 'rotate-2'];
-            const tiltClass = tiltAngles[i % tiltAngles.length];
-
-            return (
-              <div
-                key={photo._id || i}
-                className={`group bg-white rounded-3xl p-2 pb-3 border border-honey/25 shadow-soft flex flex-col hover:shadow-lift transition-all hover:scale-105 hover:rotate-0 ${tiltClass}`}
-              >
-                <div className="aspect-square rounded-2xl overflow-hidden bg-honey/10 mb-2">
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.caption}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-1 text-center bg-white flex-1 flex items-center justify-center">
-                  <p className="text-xs font-medium text-cocoa leading-tight font-scrawl">
-                    {photo.caption}
-                  </p>
-                </div>
+          {(happyFamilies.slice(0, 8)).map((photo, i) => (
+            <div
+              key={photo._id || i}
+              className="group bg-white rounded-3xl overflow-hidden border border-honey/20 shadow-soft flex flex-col hover:shadow-lift transition-all hover:-translate-y-1"
+            >
+              <div className="aspect-square overflow-hidden bg-honey/10">
+                <img
+                  src={photo.imageUrl}
+                  alt={photo.caption}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               </div>
-            );
-          })}
+              <div className="p-3 text-center bg-white flex-1 flex items-center justify-center">
+                <p className="text-xs font-medium text-cocoa leading-tight">
+                  {photo.caption}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="text-center mt-10">
@@ -647,10 +544,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 7. FAQ PREVIEW (3 ACCORDIONS WITH SHIH TZU PEKER) */}
+      {/* 7. FAQ PREVIEW */}
       <section
         id="faq-preview-section"
-        data-pup-anchor="faq"
         className="py-16 md:py-20 bg-[#fefaf3] border-t border-honey/25 relative"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -681,7 +577,7 @@ export const HomePage = () => {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-cocoa-soft leading-relaxed border-t border-honey/10 animate-in fade-in duration-200">
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-cocoa-soft leading-relaxed border-t border-honey/10">
                       {faq.answer}
                     </div>
                   )}
@@ -702,10 +598,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* 8. FINAL CTA SECTION (GRAND FINALE ASSEMBLY) */}
+      {/* 8. FINAL CTA SECTION */}
       <section
         id="final-cta-section"
-        data-pup-anchor="final-cta"
         className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
       >
         <div className="bg-gradient-to-r from-[#faeada] via-[#f7dfc5] to-[#fcefe3] rounded-4xl p-8 sm:p-12 md:p-16 border border-honey/40 shadow-soft-lg flex flex-col md:flex-row items-center justify-between gap-10">
@@ -725,11 +620,8 @@ export const HomePage = () => {
                 href={getWhatsAppLink("Hi TeddyPups! I'm ready to find my new puppy. Can you help me?")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm shadow-lift transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm shadow-lift transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               >
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 text-sm">
-                  🐾
-                </span>
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>Enquire on WhatsApp</span>
               </a>
@@ -750,14 +642,10 @@ export const HomePage = () => {
                 alt="Welcome Home Puppy"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
-              {/* Animated Floating Hearts */}
-              <div className="absolute top-3 right-3 text-red-500 text-lg animate-bounce pointer-events-none">
-                ❤️
-              </div>
             </div>
-            <div className="absolute -bottom-3 -right-3 bg-toffee text-milk text-xs font-bold px-4 py-2 rounded-full shadow-lift border-2 border-white font-scrawl flex items-center gap-1.5 animate-pulse">
+            <div className="absolute -bottom-3 -right-3 bg-toffee text-milk text-xs font-bold px-4 py-2 rounded-full shadow-lift border-2 border-white font-scrawl flex items-center gap-1.5">
               <span>welcome home</span>
-              <span className="animate-wiggle-fast">🐾</span>
+              <span>🐾</span>
             </div>
           </div>
         </div>
