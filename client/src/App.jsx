@@ -8,6 +8,7 @@ import { MobileStickyBar } from './components/common/MobileStickyBar';
 import { WalkingPuppy } from './components/common/WalkingPuppy';
 import { ScrollPopPup } from './components/common/ScrollPopPup';
 import { PawClickEffect } from './components/common/PawClickEffect';
+import { SurprisePopups } from './components/common/SurprisePopups';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -60,6 +61,7 @@ const PublicLayout = ({ children }) => {
       <MobileStickyBar />
       <WalkingPuppy />
       <ScrollPopPup />
+      <SurprisePopups />
       <PawClickEffect />
     </div>
   );

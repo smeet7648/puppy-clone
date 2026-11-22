@@ -5,40 +5,52 @@ import { useSettings } from '../../context/SettingsContext';
 export const WalkingPuppy = () => {
   const { getWhatsAppLink } = useSettings();
   const [posX, setPosX] = useState(-80);
-  const [direction, setDirection] = useState(1); // 1 = walking right, -1 = walking left
+  const [direction, setDirection] = useState(1); // 1 = right, -1 = left
   const [isPaused, setIsPaused] = useState(false);
+  const [action, setAction] = useState('walk'); // 'walk', 'hop', 'sniff'
   const [speech, setSpeech] = useState('');
   const [pawPrints, setPawPrints] = useState([]);
-  const [barkCount, setBarkCount] = useState(0);
   const [isSleeping, setIsSleeping] = useState(false);
+  const [celebration, setCelebration] = useState(false);
 
   const speeches = [
     "Woof! Did someone say cuddles? 🐾",
-    "I'm heading to the Dubai showroom! 🏙️",
+    "I'm heading to our Dubai showroom! 🏙️",
     "Every puppy is family! ❤️",
-    "Click me to chat on WhatsApp! 📱",
-    "Looking for a Korean Teacup Maltipoo? 🐶",
-    "I love belly rubs! ✨",
+    "Tap me to chat with our concierge! 📱",
+    "Looking for a Korean teacup baby? 🐶",
+    "Belly rubs are my absolute favorite! ✨",
   ];
 
-  // Walking loop
+  // Walking and periodic hop/sniff behavior loop
   useEffect(() => {
     if (isPaused || isSleeping) return;
 
+    let stepCount = 0;
+
     const interval = setInterval(() => {
+      stepCount++;
+
+      // Trigger a periodic cute hop every 120 steps (~3.6s)
+      if (stepCount % 120 === 0 && action === 'walk') {
+        setAction('hop');
+        setTimeout(() => setAction('walk'), 600);
+      }
+
       setPosX(prev => {
         const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-        const nextX = prev + (direction * 1.8);
+        const speed = action === 'hop' ? 2.4 : 1.8;
+        const nextX = prev + (direction * speed);
 
-        // Drop a paw print every ~40px
-        if (Math.abs(nextX % 45) < 2) {
+        // Drop paw prints
+        if (Math.abs(nextX % 50) < 2.5) {
           setPawPrints(old => [
-            ...old.slice(-8),
-            { id: Date.now() + Math.random(), x: nextX + (direction === 1 ? -10 : 70), y: Math.random() * 4 }
+            ...old.slice(-10),
+            { id: Date.now() + Math.random(), x: nextX + (direction === 1 ? -15 : 75), y: Math.random() * 5 }
           ]);
         }
 
-        // Boundary checks: turn around
+        // Screen boundary checks with smooth turnaround
         if (direction === 1 && nextX > screenWidth + 20) {
           setDirection(-1);
           return screenWidth + 10;
@@ -52,7 +64,7 @@ export const WalkingPuppy = () => {
     }, 30);
 
     return () => clearInterval(interval);
-  }, [direction, isPaused, isSleeping]);
+  }, [direction, isPaused, isSleeping, action]);
 
   // Clean old paw prints
   useEffect(() => {
@@ -64,12 +76,12 @@ export const WalkingPuppy = () => {
 
   const handlePuppyClick = () => {
     setIsPaused(true);
-    const randomSpeech = speeches[barkCount % speeches.length];
+    setCelebration(true);
+    const randomSpeech = speeches[Math.floor(Math.random() * speeches.length)];
     setSpeech(randomSpeech);
-    setBarkCount(c => c + 1);
 
-    // Auto resume walking after 4 seconds unless clicked to WhatsApp
     setTimeout(() => {
+      setCelebration(false);
       setIsPaused(false);
       setSpeech('');
     }, 4500);
@@ -77,14 +89,14 @@ export const WalkingPuppy = () => {
 
   const handleWhatsAppDirect = (e) => {
     e.stopPropagation();
-    window.open(getWhatsAppLink("Hi TeddyPups! The cute walking puppy told me to say hello! 🐶"), '_blank', 'noopener,noreferrer');
+    window.open(getWhatsAppLink("Hi TeddyPups! The little walking puppy told me to say hello! 🐾"), '_blank', 'noopener,noreferrer');
   };
 
   if (isSleeping) {
     return (
       <button
         onClick={() => setIsSleeping(false)}
-        className="fixed bottom-24 left-4 z-40 bg-milk/90 hover:bg-honey/30 text-cocoa text-xs font-bold px-3 py-1.5 rounded-full shadow-md border border-honey/40 flex items-center gap-1.5 transition"
+        className="fixed bottom-24 left-4 z-40 bg-white/90 hover:bg-honey/30 text-cocoa text-xs font-bold px-3 py-1.5 rounded-full shadow-md border border-honey/40 flex items-center gap-1.5 transition select-none"
         title="Wake up walking puppy"
       >
         <span>Wake pup 🐾</span>
@@ -93,24 +105,24 @@ export const WalkingPuppy = () => {
   }
 
   return (
-    <div className="fixed bottom-12 md:bottom-2 left-0 w-full pointer-events-none z-30 overflow-hidden h-28">
+    <div className="fixed bottom-12 md:bottom-2 left-0 w-full pointer-events-none z-30 overflow-hidden h-32">
       {/* Dropped Paw Prints Trail */}
       {pawPrints.map(paw => (
         <span
           key={paw.id}
-          className="absolute text-honey/60 text-xs pointer-events-none animate-fade-out select-none"
+          className="absolute text-honey/70 text-xs pointer-events-none animate-fade-out select-none"
           style={{
             left: `${paw.x}px`,
-            bottom: `${14 + paw.y}px`,
-            opacity: 0.6,
-            transition: 'opacity 2s ease-out'
+            bottom: `${16 + paw.y}px`,
+            opacity: 0.7,
+            transition: 'opacity 2.5s ease-out'
           }}
         >
           🐾
         </span>
       ))}
 
-      {/* The Animated Walking Puppy Container */}
+      {/* Walking Puppy Unit */}
       <div
         className="absolute bottom-2 pointer-events-auto cursor-pointer transition-transform duration-75 select-none"
         style={{
@@ -119,16 +131,27 @@ export const WalkingPuppy = () => {
         }}
         onClick={handlePuppyClick}
       >
+        {/* Playful Fluttering Butterfly Leading the Way */}
+        <div
+          className="absolute -top-6 text-sm animate-butterfly-flutter pointer-events-none"
+          style={{
+            left: direction === 1 ? '85px' : '-20px',
+            transform: direction === 1 ? 'scaleX(1)' : 'scaleX(-1)'
+          }}
+        >
+          🦋
+        </div>
+
         {/* Speech Bubble */}
         {speech && (
           <div
-            className="absolute -top-16 left-1/2 -translate-x-1/2 bg-white text-cocoa font-bold text-xs px-3.5 py-2 rounded-2xl shadow-lift border border-honey/40 whitespace-nowrap flex items-center gap-2 animate-in zoom-in-75 duration-200"
+            className="absolute -top-20 left-1/2 -translate-x-1/2 bg-white text-cocoa font-bold text-xs px-4 py-2.5 rounded-3xl shadow-2xl border-2 border-honey/40 whitespace-nowrap flex items-center gap-2 animate-in zoom-in-75 duration-200"
             style={{ transform: `scaleX(${direction})` }}
           >
             <span>{speech}</span>
             <button
               onClick={handleWhatsAppDirect}
-              className="bg-[#25D366] text-white p-1 rounded-full hover:scale-110 transition"
+              className="bg-[#25D366] text-white p-1.5 rounded-full hover:scale-110 shadow-xs transition"
               title="Chat on WhatsApp"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />
@@ -136,99 +159,140 @@ export const WalkingPuppy = () => {
           </div>
         )}
 
-        {/* Pup Sleep / Close mini button */}
+        {/* Celebration Confetti Burst on Click */}
+        {celebration && (
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none animate-bounce">
+            <span className="text-red-500 text-sm">❤️</span>
+            <span className="text-amber-500 text-sm">✨</span>
+            <span className="text-emerald-500 text-sm">🦴</span>
+          </div>
+        )}
+
+        {/* Pup Nap Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             setIsSleeping(true);
           }}
-          className="absolute -top-3 -right-2 bg-cocoa/80 hover:bg-cocoa text-milk rounded-full p-0.5 opacity-0 hover:opacity-100 transition shadow-xs"
+          className="absolute -top-3 -right-2 bg-cocoa/80 hover:bg-cocoa text-milk rounded-full p-1 opacity-0 hover:opacity-100 transition shadow-xs"
           title="Take a nap (hide puppy)"
         >
           <X className="w-3 h-3" />
         </button>
 
-        {/* Custom Cute Animated SVG Puppy */}
-        <div className={`w-20 h-16 relative ${isPaused ? 'animate-bounce' : ''}`}>
+        {/* ULTRA-DETAILED ANIMATED LUXURY PUPPY */}
+        <div className={`w-24 h-20 relative ${action === 'hop' ? 'animate-hop-jump' : celebration ? 'animate-spin-once' : ''}`}>
           <svg
-            viewBox="0 0 100 80"
-            className="w-full h-full drop-shadow-md"
+            viewBox="0 0 110 90"
+            className="w-full h-full drop-shadow-lg"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Tail */}
-            <path
-              d="M 22 42 Q 10 32 12 22"
-              fill="none"
-              stroke="#c2622b"
-              strokeWidth="7"
-              strokeLinecap="round"
-              className={isPaused ? 'animate-wiggle-fast' : 'animate-tail-wag'}
-              style={{ transformOrigin: '22px 42px' }}
-            />
+            <defs>
+              <radialGradient id="pupBodyGrad" cx="45%" cy="35%" r="65%">
+                <stop offset="0%" stopColor="#fdf0d5" />
+                <stop offset="40%" stopColor="#f2be6b" />
+                <stop offset="85%" stopColor="#c2622b" />
+                <stop offset="100%" stopColor="#a24a1a" />
+              </radialGradient>
 
-            {/* Back Legs */}
-            <path
-              d="M 32 50 L 30 72"
-              stroke="#a24a1a"
-              strokeWidth="6"
-              strokeLinecap="round"
-              className={!isPaused ? 'animate-leg-back-left' : ''}
-              style={{ transformOrigin: '32px 50px' }}
-            />
-            <path
-              d="M 40 50 L 42 72"
-              stroke="#c2622b"
-              strokeWidth="6"
-              strokeLinecap="round"
-              className={!isPaused ? 'animate-leg-back-right' : ''}
-              style={{ transformOrigin: '40px 50px' }}
-            />
+              <radialGradient id="earFurGrad" cx="30%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#f2be6b" />
+                <stop offset="60%" stopColor="#c2622b" />
+                <stop offset="100%" stopColor="#8e3f15" />
+              </radialGradient>
 
-            {/* Fluffy Body */}
-            <ellipse cx="48" cy="46" rx="22" ry="16" fill="#c2622b" />
-            <ellipse cx="48" cy="46" rx="18" ry="13" fill="#f2be6b" opacity="0.4" />
+              <linearGradient id="collarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ef4444" />
+                <stop offset="100%" stopColor="#b91c1c" />
+              </linearGradient>
 
-            {/* Front Legs */}
-            <path
-              d="M 60 50 L 58 72"
-              stroke="#a24a1a"
-              strokeWidth="6"
-              strokeLinecap="round"
-              className={!isPaused ? 'animate-leg-front-left' : ''}
-              style={{ transformOrigin: '60px 50px' }}
-            />
-            <path
-              d="M 68 50 L 70 72"
-              stroke="#c2622b"
-              strokeWidth="6"
-              strokeLinecap="round"
-              className={!isPaused ? 'animate-leg-front-right' : ''}
-              style={{ transformOrigin: '68px 50px' }}
-            />
+              <radialGradient id="goldBellGrad" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stopColor="#fffbeb" />
+                <stop offset="45%" stopColor="#facc15" />
+                <stop offset="100%" stopColor="#ca8a04" />
+              </radialGradient>
+            </defs>
 
-            {/* Head Group (bobs up and down when walking) */}
-            <g className={!isPaused ? 'animate-head-bob' : ''} style={{ transformOrigin: '72px 30px' }}>
+            {/* Fluffy Tail with Energetic Wag */}
+            <g className={isPaused ? 'animate-wiggle-fast' : 'animate-tail-wag'} style={{ transformOrigin: '24px 46px' }}>
+              <path
+                d="M 24 46 Q 8 36 10 22 Q 18 16 22 28 Q 24 38 26 44 Z"
+                fill="url(#pupBodyGrad)"
+              />
+              <circle cx="12" cy="20" r="5" fill="#fbe3b4" />
+            </g>
+
+            {/* Back Legs (Articulated Trot) */}
+            <g className={!isPaused ? 'animate-leg-back-left' : ''} style={{ transformOrigin: '32px 52px' }}>
+              <path d="M 32 52 Q 28 64 30 78" stroke="#a24a1a" strokeWidth="7" strokeLinecap="round" />
+              <ellipse cx="30" cy="78" rx="5" ry="3" fill="#fffdf8" />
+            </g>
+
+            <g className={!isPaused ? 'animate-leg-back-right' : ''} style={{ transformOrigin: '42px 52px' }}>
+              <path d="M 42 52 Q 44 64 42 78" stroke="#c2622b" strokeWidth="7" strokeLinecap="round" />
+              <ellipse cx="42" cy="78" rx="5" ry="3" fill="#fffdf8" />
+            </g>
+
+            {/* Fluffy Body (Plush Maltipoo Shape) */}
+            <ellipse cx="50" cy="50" rx="25" ry="18" fill="url(#pupBodyGrad)" />
+            {/* Soft tummy curls */}
+            <circle cx="42" cy="50" r="10" fill="#fffdf8" opacity="0.3" />
+            <circle cx="56" cy="52" r="11" fill="#fffdf8" opacity="0.25" />
+
+            {/* Front Legs (Articulated Trot) */}
+            <g className={!isPaused ? 'animate-leg-front-left' : ''} style={{ transformOrigin: '64px 54px' }}>
+              <path d="M 64 54 Q 60 66 62 78" stroke="#a24a1a" strokeWidth="7" strokeLinecap="round" />
+              <ellipse cx="62" cy="78" rx="5" ry="3" fill="#fffdf8" />
+            </g>
+
+            <g className={!isPaused ? 'animate-leg-front-right' : ''} style={{ transformOrigin: '72px 54px' }}>
+              <path d="M 72 54 Q 74 66 73 78" stroke="#c2622b" strokeWidth="7" strokeLinecap="round" />
+              <ellipse cx="73" cy="78" rx="5" ry="3" fill="#fffdf8" />
+            </g>
+
+            {/* Red Collar with Dangling Golden Bell */}
+            <ellipse cx="72" cy="46" rx="6" ry="12" fill="url(#collarGrad)" transform="rotate(-15 72 46)" />
+            <circle cx="73" cy="56" r="4" fill="url(#goldBellGrad)" stroke="#a16207" strokeWidth="0.8" className="animate-wiggle-fast" style={{ transformOrigin: '73px 52px' }} />
+
+            {/* Head Group with Natural Bobbing & Fluffy Ears */}
+            <g className={!isPaused ? 'animate-head-bob' : ''} style={{ transformOrigin: '78px 34px' }}>
               {/* Back Ear */}
-              <ellipse cx="64" cy="20" rx="8" ry="14" fill="#a24a1a" transform="rotate(-15 64 20)" />
+              <g transform="rotate(-15 68 22)">
+                <ellipse cx="68" cy="22" rx="9" ry="17" fill="url(#earFurGrad)" />
+                <ellipse cx="68" cy="22" rx="5" ry="11" fill="#fbe3b4" />
+              </g>
 
-              {/* Head */}
-              <circle cx="72" cy="30" r="17" fill="#c2622b" />
+              {/* Head Circle */}
+              <circle cx="78" cy="34" r="19" fill="url(#pupBodyGrad)" />
 
-              {/* Snout */}
-              <ellipse cx="82" cy="34" rx="9" ry="7" fill="#fffdf8" />
-              <ellipse cx="84" cy="32" rx="3.5" ry="2.5" fill="#2a170e" />
-              <path d="M 83 35 Q 85 37 87 35" fill="none" stroke="#2a170e" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Forehead fluff puffs */}
+              <circle cx="72" cy="18" r="6" fill="#fbe3b4" />
+              <circle cx="78" cy="16" r="7" fill="#fbe3b4" />
+              <circle cx="84" cy="18" r="6" fill="#fbe3b4" />
 
-              {/* Eye */}
-              <circle cx="76" cy="26" r="3.5" fill="#2a170e" />
-              <circle cx="77.5" cy="25" r="1.2" fill="#ffffff" />
+              {/* White Muzzle / Snout */}
+              <ellipse cx="89" cy="38" rx="11" ry="8" fill="#fffdf8" />
+              {/* Button Nose */}
+              <ellipse cx="91" cy="35" rx="4.5" ry="3.5" fill="#2a170e" />
+              <circle cx="90" cy="34" r="1.2" fill="#ffffff" />
 
-              {/* Blush Cheek */}
-              <circle cx="75" cy="34" r="3" fill="#f9cdbf" opacity="0.8" />
+              {/* Cute smiling mouth & little panting tongue */}
+              <path d="M 87 40 Q 90 43 93 40" fill="none" stroke="#2a170e" strokeWidth="1.6" strokeLinecap="round" />
+              <ellipse cx="90" cy="43" rx="2.5" ry="3.5" fill="#f43f5e" className={!isPaused ? 'animate-pulse' : ''} />
+
+              {/* Shining Glass Eyes with Double Catchlights */}
+              <circle cx="82" cy="30" r="4.2" fill="#2a170e" />
+              <circle cx="83.5" cy="28.5" r="1.8" fill="#ffffff" />
+              <circle cx="81" cy="31.5" r="0.8" fill="#ffffff" />
+
+              {/* Rosy Cheek */}
+              <circle cx="80" cy="38" r="3.5" fill="#f9cdbf" opacity="0.8" />
 
               {/* Front Floppy Ear */}
-              <ellipse cx="66" cy="24" rx="7" ry="13" fill="#c2622b" transform="rotate(-10 66 24)" />
-              <ellipse cx="66" cy="24" rx="4" ry="9" fill="#fbe3b4" transform="rotate(-10 66 24)" />
+              <g transform="rotate(-8 71 27)">
+                <ellipse cx="71" cy="27" rx="9" ry="17" fill="url(#earFurGrad)" />
+                <ellipse cx="71" cy="27" rx="5" ry="11" fill="#fbe3b4" />
+              </g>
             </g>
           </svg>
         </div>
