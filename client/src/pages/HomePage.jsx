@@ -91,7 +91,7 @@ export const HomePage = () => {
         id="hero-section"
         className="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden"
       >
-        {/* Full-Cover Background Puppy Video */}
+        {/* Full-Cover Background Puppy Video with High-Vibrancy Colors */}
         <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
           <video
             ref={videoRef}
@@ -99,14 +99,14 @@ export const HomePage = () => {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover object-center scale-105 filter opacity-40 brightness-105"
+            className="w-full h-full object-cover object-center scale-105 filter opacity-90 saturate-140 contrast-105 brightness-100 transition-opacity duration-700"
           >
             <source src="/videos/puppies-bg.webm" type="video/webm" />
             <source src="/videos/puppy-bg-480.webm" type="video/webm" />
           </video>
-          {/* Luxury Warm Scrim & Radial Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#fefaf3]/85 via-milk/80 to-milk" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(255,253,248,0.85)_100%)]" />
+          {/* Subtle Warm Scrim & Top/Bottom Vignette to let vivid puppy colors shine */}
+          <div className="absolute inset-0 bg-gradient-to-b from-milk/40 via-transparent to-milk/95" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(42,23,14,0.12)_100%)]" />
         </div>
 
         {/* Ambient Video Control Badge */}
@@ -133,79 +133,81 @@ export const HomePage = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          
-          {/* Small label */}
-          <motion.div
-            initial={{ scale: 0, rotate: -6 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: 'spring', stiffness: 220, damping: 14 }}
-            className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs backdrop-blur-xs"
-          >
-            <span className="w-2 h-2 rounded-full bg-toffee animate-pulse" />
-            <span className="font-scrawl text-toffee text-sm sm:text-base font-semibold">
-              every puppy is family
-            </span>
-          </motion.div>
-
-          {/* Headline with Cartoon Pop */}
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 16 }}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight max-w-4xl mx-auto leading-[1.1] drop-shadow-xs"
-          >
-            Premium teacup puppies in <span className="text-toffee italic">Dubai</span>
-          </motion.h1>
-
-          {/* Sub-copy */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.5 }}
-            className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed font-medium"
-          >
-            Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide.
-          </motion.p>
-
-          {/* Two CTAs */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.25, type: 'spring', stiffness: 200, damping: 16 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link
-              to="/puppies"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-toffee text-milk font-bold text-base shadow-lift hover:bg-toffee-deep transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+          {/* Frosted Glass Hero Showcase Card for crisp legibility over vibrant puppy video */}
+          <div className="max-w-4xl mx-auto backdrop-blur-md bg-milk/75 sm:bg-milk/80 rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-white/80 shadow-soft-lg">
+            {/* Small label */}
+            <motion.div
+              initial={{ scale: 0, rotate: -6 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 14 }}
+              className="inline-flex items-center gap-2 bg-honey/30 border border-honey/60 px-4 py-1.5 rounded-full mb-6 shadow-xs backdrop-blur-xs"
             >
-              <span>View available puppies</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+              <span className="w-2 h-2 rounded-full bg-toffee animate-pulse" />
+              <span className="font-scrawl text-toffee text-sm sm:text-base font-semibold">
+                every puppy is family
+              </span>
+            </motion.div>
 
-            <a
-              href={getWhatsAppLink("Hi TeddyPups! I would like to enquire about your available teacup puppies.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+            {/* Headline with Cartoon Pop */}
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 180, damping: 16 }}
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-cocoa tracking-tight leading-[1.1] drop-shadow-xs"
             >
-              <MessageCircle className="w-5 h-5 fill-current" />
-              <span>Enquire on WhatsApp</span>
-            </a>
-          </motion.div>
+              Premium teacup puppies in <span className="text-toffee italic">Dubai</span>
+            </motion.h1>
 
-          {/* Trust badges strip under hero */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-semibold">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-toffee" />
-              <span>100% Health Checked & Vaccinated</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-toffee" />
-              <span>Downtown Dubai Showroom</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-toffee" />
-              <span>Korea to UAE Concierge</span>
+            {/* Sub-copy */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="mt-6 text-base sm:text-lg md:text-xl text-cocoa-soft max-w-2xl mx-auto leading-relaxed font-medium"
+            >
+              Meet your new best friend in our Dubai showroom, or order a rare miniature breed from trusted breeders worldwide.
+            </motion.p>
+
+            {/* Two CTAs */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.25, type: 'spring', stiffness: 200, damping: 16 }}
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              <Link
+                to="/puppies"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-toffee text-milk font-bold text-base shadow-lift hover:bg-toffee-deep transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              >
+                <span>View available puppies</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+
+              <a
+                href={getWhatsAppLink("Hi TeddyPups! I would like to enquire about your available teacup puppies.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-base shadow-lift transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5 fill-current" />
+                <span>Enquire on WhatsApp</span>
+              </a>
+            </motion.div>
+
+            {/* Trust badges strip under hero */}
+            <div className="mt-8 pt-6 border-t border-honey/25 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-cocoa-soft font-semibold">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-toffee" />
+                <span>100% Health Checked & Vaccinated</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-toffee" />
+                <span>Downtown Dubai Showroom</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-toffee" />
+                <span>Korea to UAE Concierge</span>
+              </div>
             </div>
           </div>
         </div>
@@ -405,7 +407,7 @@ export const HomePage = () => {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover filter saturate-130 contrast-105"
             >
               <source src="/videos/puppies-bg.webm" type="video/webm" />
               <source src="/videos/puppy-bg-480.webm" type="video/webm" />
