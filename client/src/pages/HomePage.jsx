@@ -398,42 +398,42 @@ export const HomePage = () => {
       </section>
 
       {/* 4. DEDICATED SHOWROOM PLAYROOM VIDEO BANNER */}
-      <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <CartoonSection direction="pop">
-          <div className="relative rounded-3xl sm:rounded-4xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white aspect-[4/3] sm:aspect-[21/8] min-h-[340px] sm:min-h-[280px]">
+      <section className="py-8 sm:py-12 md:py-16 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full overflow-hidden">
+        <CartoonSection direction="pop" className="w-full max-w-full">
+          <div className="relative w-full max-w-full rounded-2xl sm:rounded-4xl overflow-hidden shadow-2xl border-2 sm:border-4 border-white sm:aspect-[21/8] min-h-[380px] sm:min-h-[280px]">
             {/* Live Playroom Video Loop */}
             <video
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover filter saturate-130 contrast-105"
+              className="absolute inset-0 w-full h-full object-cover filter saturate-130 contrast-105"
             >
               <source src="/videos/puppies-bg.webm" type="video/webm" />
               <source src="/videos/puppy-bg-480.webm" type="video/webm" />
             </video>
 
             {/* Glassmorphic Overlay with VIP Concierge invitation */}
-            <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-cocoa/95 via-cocoa/80 sm:via-cocoa/40 to-transparent flex items-end sm:items-center p-5 sm:p-10 md:p-12">
-              <div className="max-w-md text-milk">
-                <span className="inline-flex items-center gap-1.5 bg-honey/30 text-honey px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 sm:mb-3 border border-honey/40">
+            <div className="relative z-10 w-full h-full min-h-[380px] sm:min-h-[280px] bg-gradient-to-t sm:bg-gradient-to-r from-cocoa/95 via-cocoa/85 sm:via-cocoa/40 to-transparent flex items-end sm:items-center p-4 sm:p-10 md:p-12">
+              <div className="w-full max-w-md text-milk">
+                <span className="inline-flex items-center gap-1.5 bg-honey/30 text-honey px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 border border-honey/40">
                   <span className="w-2 h-2 rounded-full bg-honey animate-ping" />
                   Live Showroom Cuddles
                 </span>
-                <h3 className="font-serif text-xl sm:text-3xl md:text-4xl font-bold text-milk mb-2 leading-tight">
+                <h3 className="font-serif text-lg sm:text-3xl md:text-4xl font-bold text-milk mb-2 leading-tight break-words">
                   See our teacup puppies playing live
                 </h3>
-                <p className="text-xs sm:text-sm text-milk/80 mb-4 sm:mb-5 leading-relaxed">
+                <p className="text-xs sm:text-sm text-milk/85 mb-4 sm:mb-5 leading-relaxed break-words">
                   Every puppy is raised with love, socialization, and pristine hygiene. Schedule an interactive WhatsApp video call to see them play right now.
                 </p>
                 <a
                   href={getWhatsAppLink("Hi TeddyPups! I watched your showroom video. Can I book a live video call to see available puppies?")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white w-full sm:w-auto px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-lift transition hover:scale-105 active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 sm:px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-lift transition hover:scale-105 active:scale-95 text-center"
                 >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Request Live Video Call</span>
+                  <MessageCircle className="w-4 h-4 fill-current flex-shrink-0" />
+                  <span className="truncate">Request Live Video Call</span>
                 </a>
               </div>
             </div>
