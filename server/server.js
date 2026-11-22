@@ -105,8 +105,8 @@ app.use((err, req, res, next) => {
 export { app };
 
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-    console.log(`🐾 TeddyPups Server running on http://localhost:${PORT}`);
+  app.listen(PORT, '127.0.0.1', () => {
+    console.log(`🐾 TeddyPups Server running on http://127.0.0.1:${PORT}`);
   });
 }
 

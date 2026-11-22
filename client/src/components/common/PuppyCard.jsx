@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Play, Sparkles, Heart, MessageCircle } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
@@ -16,13 +17,25 @@ export const PuppyCard = ({ puppy }) => {
   const waMessage = `Hi TeddyPups! I'm interested in ${puppy.name} (${puppy.breed}, ${puppy.gender}, ${puppy.ageLabel || puppy.ageMonths + ' months'}). Is this puppy available?`;
 
   return (
-    <div className="group relative bg-white rounded-3xl overflow-hidden border border-honey/20 shadow-soft hover:shadow-lift transition-all duration-300 flex flex-col hover:-translate-y-1">
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+      className="group relative bg-white rounded-3xl overflow-hidden border border-honey/20 shadow-soft hover:shadow-lift flex flex-col"
+    >
+      {/* Decorative cute puppy ears that pop up on card hover */}
+      <div className="absolute -top-3 left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1 z-10 pointer-events-none">
+        <span className="text-sm">🐾</span>
+      </div>
+
       {/* Image Area */}
       <Link to={`/puppies/${puppy.slug}`} className="relative aspect-[4/3] overflow-hidden bg-honey/10 block">
         <img
           src={displayImage}
           alt={`${puppy.name} - ${puppy.breed}`}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
           loading="lazy"
         />
 
@@ -30,24 +43,24 @@ export const PuppyCard = ({ puppy }) => {
         <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-1 pointer-events-none">
           {/* Status Badge */}
           {isAvailable && (
-            <span className="bg-emerald-600/90 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+            <span className="bg-emerald-600/95 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
               Available
             </span>
           )}
           {isReserved && (
-            <span className="bg-amber-600/90 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+            <span className="bg-amber-600/95 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
               Reserved
             </span>
           )}
           {isSold && (
-            <span className="bg-cocoa/90 backdrop-blur-xs text-milk text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+            <span className="bg-cocoa/95 backdrop-blur-xs text-milk text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
               Gone Home
             </span>
           )}
 
           {/* Video indicator */}
           {puppy.videoUrl && (
-            <span className="bg-cocoa/75 backdrop-blur-xs text-milk text-[11px] font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-xs">
+            <span className="bg-cocoa/80 backdrop-blur-xs text-milk text-[11px] font-medium px-2 py-1 rounded-full flex items-center gap-1 shadow-xs">
               <Play className="w-3 h-3 fill-honey text-honey" />
               <span>with video</span>
             </span>
@@ -73,7 +86,7 @@ export const PuppyCard = ({ puppy }) => {
         <div>
           <div className="flex items-center justify-between gap-2 mb-1">
             <Link to={`/puppies/${puppy.slug}`} className="hover:text-toffee transition">
-              <h3 className="font-serif text-xl font-bold text-cocoa leading-tight">
+              <h3 className="font-serif text-xl font-bold text-cocoa leading-tight group-hover:text-toffee transition-colors">
                 {puppy.name}
               </h3>
             </Link>
@@ -106,13 +119,13 @@ export const PuppyCard = ({ puppy }) => {
               target="_blank"
               rel="noopener noreferrer"
               title="Enquire on WhatsApp"
-              className="p-1.5 rounded-full bg-toffee text-milk hover:bg-toffee-deep transition shadow-lift hover:scale-105 active:scale-95"
+              className="p-2 rounded-full bg-toffee text-milk hover:bg-toffee-deep transition shadow-lift hover:scale-110 active:scale-95"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
             </a>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

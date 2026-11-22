@@ -5,6 +5,9 @@ import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsAppWidget } from './components/common/FloatingWhatsAppWidget';
 import { MobileStickyBar } from './components/common/MobileStickyBar';
+import { WalkingPuppy } from './components/common/WalkingPuppy';
+import { ScrollPopPup } from './components/common/ScrollPopPup';
+import { PawClickEffect } from './components/common/PawClickEffect';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -46,7 +49,7 @@ const ProtectedRoute = ({ children }) => {
 // Public Layout Wrapper
 const PublicLayout = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-milk text-cocoa">
+    <div className="min-h-screen flex flex-col bg-milk text-cocoa relative overflow-x-hidden">
       <AnnouncementStrip />
       <Header />
       <main id="main-content" className="flex-1">
@@ -55,6 +58,9 @@ const PublicLayout = ({ children }) => {
       <Footer />
       <FloatingWhatsAppWidget />
       <MobileStickyBar />
+      <WalkingPuppy />
+      <ScrollPopPup />
+      <PawClickEffect />
     </div>
   );
 };

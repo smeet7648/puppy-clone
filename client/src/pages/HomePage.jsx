@@ -149,7 +149,17 @@ export const HomePage = () => {
       </section>
 
       {/* 2. MEET THE PUPS */}
-      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Playful scroll-triggered puppy mascot peeking over section */}
+        <div className="flex justify-center -mt-20 mb-8 relative z-20">
+          <div className="bg-white/95 backdrop-blur-xs px-5 py-2 rounded-full border border-honey/40 shadow-soft flex items-center gap-2.5 animate-bounce hover:scale-105 transition cursor-pointer">
+            <span className="text-2xl animate-wiggle-fast">🐶</span>
+            <span className="font-scrawl text-toffee text-sm font-bold">
+              peek-a-boo! tap any pup to see video 🐾
+            </span>
+          </div>
+        </div>
+
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center gap-2 text-toffee font-scrawl text-lg mb-2">
@@ -292,11 +302,11 @@ export const HomePage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Step 1 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
             <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
               01
             </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
               🐾
             </div>
             <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
@@ -308,11 +318,11 @@ export const HomePage = () => {
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
             <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
               02
             </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
               📱
             </div>
             <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
@@ -324,11 +334,11 @@ export const HomePage = () => {
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-honey/20 shadow-soft relative flex flex-col group hover:shadow-lift transition-all hover:-translate-y-1">
             <span className="font-serif text-5xl font-black text-honey/30 absolute top-4 right-6 select-none">
               03
             </span>
-            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-honey/30 text-toffee flex items-center justify-center mb-5 font-bold group-hover:scale-110 transition-transform">
               🏡
             </div>
             <h3 className="font-serif text-xl font-bold text-cocoa mb-2">
@@ -338,6 +348,14 @@ export const HomePage = () => {
               Pick up your baby from our Downtown Dubai showroom, or enjoy our white-glove chauffeur delivery to your doorstep across the UAE & worldwide.
             </p>
           </div>
+        </div>
+
+        {/* Animated paw-print trail between steps */}
+        <div className="hidden md:flex items-center justify-center gap-12 my-6 text-honey text-base select-none">
+          <span className="animate-bounce" style={{ animationDelay: '0ms' }}>🐾</span>
+          <span className="animate-bounce" style={{ animationDelay: '200ms' }}>🐾</span>
+          <span className="animate-bounce" style={{ animationDelay: '400ms' }}>🐾</span>
+          <span className="animate-bounce" style={{ animationDelay: '600ms' }}>🐾</span>
         </div>
 
         {/* CTA row with showroom preview & buttons */}
@@ -600,16 +618,21 @@ export const HomePage = () => {
             </div>
           </div>
 
-          <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex-shrink-0">
-            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+          <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex-shrink-0 group">
+            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative">
               <img
                 src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80"
                 alt="Welcome Home Puppy"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
+              {/* Animated Floating Hearts */}
+              <div className="absolute top-3 right-3 text-red-500 text-lg animate-bounce pointer-events-none">
+                ❤️
+              </div>
             </div>
-            <div className="absolute -bottom-3 -right-3 bg-toffee text-milk text-xs font-bold px-4 py-2 rounded-full shadow-lift border-2 border-white font-scrawl">
-              welcome home 🐾
+            <div className="absolute -bottom-3 -right-3 bg-toffee text-milk text-xs font-bold px-4 py-2 rounded-full shadow-lift border-2 border-white font-scrawl flex items-center gap-1.5 animate-pulse">
+              <span>welcome home</span>
+              <span className="animate-wiggle-fast">🐾</span>
             </div>
           </div>
         </div>
