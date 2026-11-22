@@ -5,14 +5,18 @@ import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { PuppyCard } from '../components/common/PuppyCard';
 import { SEO } from '../components/common/SEO';
+import { defaultPuppies } from '../data/defaultData';
 
 export const PuppyDetailPage = () => {
   const { slug } = useParams();
   const { settings, getWhatsAppLink } = useSettings();
-  const [puppy, setPuppy] = useState(null);
-  const [related, setRelated] = useState([]);
+  const initialPuppy = defaultPuppies.find(p => p.slug === slug) || null;
+  const initialRelated = defaultPuppies.filter(p => p.slug !== slug && p.status === 'available').slice(0, 4);
+
+  const [puppy, setPuppy] = useState(initialPuppy);
+  const [related, setRelated] = useState(initialRelated);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialPuppy);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {

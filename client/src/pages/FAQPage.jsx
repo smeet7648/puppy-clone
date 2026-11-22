@@ -3,13 +3,14 @@ import { ChevronDown, Search, MessageCircle, HelpCircle, X } from 'lucide-react'
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { SEO } from '../components/common/SEO';
+import { defaultFAQs } from '../data/defaultData';
 
 export const FAQPage = () => {
-  const [faqs, setFaqs] = useState([]);
+  const [faqs, setFaqs] = useState(defaultFAQs);
   const [activeFaq, setActiveFaq] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { getWhatsAppLink } = useSettings();
 
   useEffect(() => {

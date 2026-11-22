@@ -3,11 +3,12 @@ import { MessageCircle, Heart, Star, X } from 'lucide-react';
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { SEO } from '../components/common/SEO';
+import { defaultHappyFamilies, defaultTestimonials } from '../data/defaultData';
 
 export const HappyFamiliesPage = () => {
-  const [photos, setPhotos] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [photos, setPhotos] = useState(defaultHappyFamilies);
+  const [testimonials, setTestimonials] = useState(defaultTestimonials);
+  const [loading, setLoading] = useState(false);
   const [lightboxImg, setLightboxImg] = useState(null);
   const { getWhatsAppLink } = useSettings();
 

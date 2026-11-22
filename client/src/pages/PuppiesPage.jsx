@@ -4,11 +4,12 @@ import { Search, Filter, Sparkles, HeartHandshake, ArrowRight, X } from 'lucide-
 import { api } from '../api';
 import { PuppyCard } from '../components/common/PuppyCard';
 import { SEO } from '../components/common/SEO';
+import { defaultPuppies } from '../data/defaultData';
 
 export const PuppiesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [puppies, setPuppies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [puppies, setPuppies] = useState(defaultPuppies.filter(p => p.status === 'available'));
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const currentBreed = searchParams.get('breed') || 'all';

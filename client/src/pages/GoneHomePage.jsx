@@ -4,10 +4,11 @@ import { Heart, MessageCircle, ArrowRight } from 'lucide-react';
 import { api } from '../api';
 import { useSettings } from '../context/SettingsContext';
 import { SEO } from '../components/common/SEO';
+import { defaultPuppies } from '../data/defaultData';
 
 export const GoneHomePage = () => {
-  const [adoptedPuppies, setAdoptedPuppies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [adoptedPuppies, setAdoptedPuppies] = useState(defaultPuppies.filter(p => p.status === 'sold'));
+  const [loading, setLoading] = useState(false);
   const { getWhatsAppLink } = useSettings();
 
   useEffect(() => {

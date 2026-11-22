@@ -21,15 +21,16 @@ import { PuppyCard } from '../components/common/PuppyCard';
 import { CardPeekerPup } from '../components/common/CardPeekerPup';
 import { CartoonSection } from '../components/common/CartoonSection';
 import { SEO } from '../components/common/SEO';
+import { defaultPuppies, defaultTestimonials, defaultHappyFamilies, defaultFAQs } from '../data/defaultData';
 
 export const HomePage = () => {
   const { settings, getWhatsAppLink } = useSettings();
-  const [puppies, setPuppies] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
-  const [happyFamilies, setHappyFamilies] = useState([]);
-  const [faqs, setFaqs] = useState([]);
+  const [puppies, setPuppies] = useState(defaultPuppies);
+  const [testimonials, setTestimonials] = useState(defaultTestimonials);
+  const [happyFamilies, setHappyFamilies] = useState(defaultHappyFamilies);
+  const [faqs, setFaqs] = useState(defaultFAQs);
   const [activeFaq, setActiveFaq] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Background Video State
   const [videoPlaying, setVideoPlaying] = useState(true);
