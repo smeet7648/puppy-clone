@@ -10,7 +10,9 @@ export const SEO = ({
   type = 'website',
   puppyData = null
 }) => {
-  const siteUrl = 'https://puppy.instabizweb.com';
+  const siteUrl = typeof window !== 'undefined' && window.location.origin
+    ? window.location.origin
+    : 'https://puppy.instabizweb.com';
   const url = slug ? `${siteUrl}${slug.startsWith('/') ? slug : `/${slug}`}` : siteUrl;
   const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`;
 

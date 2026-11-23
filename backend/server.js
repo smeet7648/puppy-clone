@@ -82,17 +82,72 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve frontend build in production
-const frontendDistPath = path.join(__dirname, '..', 'frontend', 'dist');
-if (fs.existsSync(frontendDistPath)) {
-  app.use(express.static(frontendDistPath));
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
-      return next();
-    }
-    res.sendFile(path.join(frontendDistPath, 'index.html'));
+// Resilient frontend static serving & SPA catch-all routing
+const candidateDistPaths = [
+  path.join(__dirname, '..', 'frontend', 'dist'),
+  path.join(process.cwd(), 'frontend', 'dist'),
+  path.join(process.cwd(), 'dist'),
+  path.join(__dirname, 'dist')
+];
+
+const findDistPath = () => candidateDistPaths.find(p => fs.existsSync(path.join(p, 'index.html')));
+
+// Register static handlers for any detected dist directory
+candidateDistPaths.forEach(distPath => {
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath, {
+      maxAge: '1d',
+      setHeaders: (res, filePath) => {
+        // Guarantee index.html is never cached so new builds load immediately
+        if (filePath.endsWith('index.html')) {
+          res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        }
+      }
+    }));
+  }
+});
+
+// Explicit API 404 handler (prevents API routes from accidentally serving index.html)
+app.all('/api/*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API endpoint not found: ${req.method} ${req.originalUrl}`
   });
-}
+});
+
+// Catch-all SPA route: serves index.html for all page navigations & direct links
+app.get('*', (req, res, next) => {
+  // Let uploads or API pass through if missed
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+    return next();
+  }
+
+  const distPath = findDistPath();
+  if (distPath) {
+    const indexPath = path.join(distPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      return res.sendFile(indexPath, (err) => {
+        if (err && !res.headersSent) {
+          next(err);
+        }
+      });
+    }
+  }
+
+  // Fallback if frontend is not built
+  res.status(404).send(`
+    <!DOCTYPE html>
+    <html>
+      <head><title>TeddyPups - Not Found</title></head>
+      <body style="font-family: sans-serif; text-align: center; padding: 50px;">
+        <h2>Page Not Found</h2>
+        <p>If you just deployed, make sure to run <code>npm run build</code> in the frontend directory.</p>
+        <a href="/">Go to Home</a>
+      </body>
+    </html>
+  `);
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

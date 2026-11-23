@@ -7,39 +7,83 @@ import { PuppyCard } from '../components/common/PuppyCard';
 import { SEO } from '../components/common/SEO';
 import { defaultPuppies } from '../data/defaultData';
 
+// Resilient fallback finder supporting exact slug, lowercase, ID, name, or breed-name combinations
+const findFallbackPuppy = (targetSlug) => {
+  if (!targetSlug) return null;
+  const clean = decodeURIComponent(targetSlug).toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+  return (
+    defaultPuppies.find((p) => {
+      const pSlug = (p.slug || '').toLowerCase();
+      const pId = (p._id || '').toLowerCase();
+      const pName = (p.name || '').toLowerCase();
+      return (
+        pSlug === clean ||
+        pId === clean ||
+        pName === clean ||
+        pSlug.endsWith(`-${clean}`) ||
+        clean.endsWith(`-${pSlug}`) ||
+        pSlug.includes(clean) ||
+        clean.includes(pSlug)
+      );
+    }) || defaultPuppies[0]
+  );
+};
+
 export const PuppyDetailPage = () => {
   const { slug } = useParams();
   const { settings, getWhatsAppLink } = useSettings();
-  const initialPuppy = defaultPuppies.find(p => p.slug === slug) || null;
-  const initialRelated = defaultPuppies.filter(p => p.slug !== slug && p.status === 'available').slice(0, 4);
 
-  const [puppy, setPuppy] = useState(initialPuppy);
+  const fallbackPup = findFallbackPuppy(slug);
+  const initialRelated = defaultPuppies
+    .filter((p) => p.slug !== (fallbackPup?.slug || slug) && p.status === 'available')
+    .slice(0, 4);
+
+  const [puppy, setPuppy] = useState(fallbackPup);
   const [related, setRelated] = useState(initialRelated);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [loading, setLoading] = useState(!initialPuppy);
+  const [loading, setLoading] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+    const fallback = findFallbackPuppy(slug);
+
+    if (fallback) {
+      setPuppy(fallback);
+      setRelated(
+        defaultPuppies.filter((p) => p.slug !== fallback.slug && p.status === 'available').slice(0, 4)
+      );
+    }
+
     const fetchDetail = async () => {
-      setLoading(true);
       try {
         const res = await api.getPuppyBySlug(slug);
-        if (res.success && res.data) {
+        if (!isMounted) return;
+        if (res && res.success && res.data) {
           setPuppy(res.data);
-          setRelated(res.related || []);
+          if (Array.isArray(res.related) && res.related.length > 0) {
+            setRelated(res.related);
+          }
           setActiveImageIdx(0);
         }
       } catch (err) {
-        console.error('Failed to load puppy detail:', err);
+        if (!isMounted) return;
+        console.warn('API detail fetch fallback:', err);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
+
     fetchDetail();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
-  if (loading) {
+  if (loading && !puppy) {
     return (
       <div className="py-24 text-center">
         <div className="w-12 h-12 border-4 border-honey border-t-toffee rounded-full animate-spin mx-auto mb-4" />
@@ -69,7 +113,10 @@ export const PuppyDetailPage = () => {
   const images = puppy.images && puppy.images.length > 0 ? puppy.images : ['https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80'];
   const currentImage = images[activeImageIdx] || images[0];
 
-  const waEnquiryText = `Hi TeddyPups! I'm enquiring about ${puppy.name} (${puppy.breed}, ${puppy.gender}, ${puppy.ageLabel || puppy.ageMonths + ' months'}) listed on https://puppy.instabizweb.com/puppies/${puppy.slug}. Could you share recent videos, health details, and how to reserve?`;
+  const currentOrigin = typeof window !== 'undefined' && window.location.origin
+    ? window.location.origin
+    : 'https://puppy.instabizweb.com';
+  const waEnquiryText = `Hi TeddyPups! I'm enquiring about ${puppy.name} (${puppy.breed}, ${puppy.gender}, ${puppy.ageLabel || puppy.ageMonths + ' months'}) listed on ${currentOrigin}/puppies/${puppy.slug}. Could you share recent videos, health details, and how to reserve?`;
 
   return (
     <div className="py-6 sm:py-8 md:py-14 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-20 md:pb-14">
