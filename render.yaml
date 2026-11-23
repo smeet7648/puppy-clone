@@ -1,0 +1,23 @@
+# Render Blueprint for TeddyPups
+# Option 1: Unified Fullstack Web Service (API + Built Frontend on 1 free Render URL)
+services:
+  - type: web
+    name: teddypups
+    runtime: node
+    plan: free
+    region: frankfurt # or singapore / oregon / ohio
+    buildCommand: npm run build:render
+    startCommand: node backend/server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false # Set your MongoDB Atlas connection string in Render Dashboard
+      - key: NOTIFICATION_EMAIL
+        value: concierge@teddypups.ae
