@@ -30,21 +30,38 @@ const PORT = process.env.PORT || 5000;
 await connectDB();
 await autoSeedIfEmpty();
 
-// Security Middleware
+// Security Middleware - explicitly allow external CDN images, videos, fonts, and inline styles
 app.use(helmet({
+  contentSecurityPolicy: false,
   crossOriginResourcePolicy: false,
+  crossOriginEmbedderPolicy: false
 }));
+
+// CORS Configuration - allows requests from Netlify, localhost, or any client
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: (origin, callback) => {
+    // allow all origins (including https://glittery-naiad-b1204c.netlify.app)
+    callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Serve local uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve local uploads reliably from multiple possible root/backend locations
+const localUploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(localUploadDir)) {
+  fs.mkdirSync(localUploadDir, { recursive: true });
+}
+app.use('/uploads', express.static(localUploadDir));
+
+const cwdUploadDir = path.join(process.cwd(), 'uploads');
+if (fs.existsSync(cwdUploadDir) && cwdUploadDir !== localUploadDir) {
+  app.use('/uploads', express.static(cwdUploadDir));
+}
 
 // Rate Limiter for general APIs
 const generalLimiter = rateLimit({

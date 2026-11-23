@@ -1,2 +1,6 @@
-# Netlify & Cloudflare Pages SPA Redirect
-/*    /index.html   200
+# Netlify Reverse Proxy for TeddyPups Live Backend
+/api/*      https://puppy-clone.onrender.com/api/:splat      200!
+/uploads/*  https://puppy-clone.onrender.com/uploads/:splat  200!
+
+# SPA Fallback for React Router
+/*          /index.html                                      200

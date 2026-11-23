@@ -10,9 +10,10 @@ export const SEO = ({
   type = 'website',
   puppyData = null
 }) => {
+  const defaultSiteUrl = 'https://glittery-naiad-b1204c.netlify.app';
   const siteUrl = typeof window !== 'undefined' && window.location.origin
     ? window.location.origin
-    : 'https://puppy.instabizweb.com';
+    : defaultSiteUrl;
   const url = slug ? `${siteUrl}${slug.startsWith('/') ? slug : `/${slug}`}` : siteUrl;
   const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`;
 

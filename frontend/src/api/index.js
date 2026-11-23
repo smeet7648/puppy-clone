@@ -1,5 +1,43 @@
-const rawApiUrl = import.meta.env.VITE_API_URL || '';
-const API_BASE = rawApiUrl ? `${rawApiUrl.replace(/\/+$/, '')}/api` : '/api';
+export const LIVE_BACKEND_URL = 'https://puppy-clone.onrender.com';
+
+/**
+ * Intelligent API base resolution:
+ * 1. Honors VITE_API_URL if set in environment
+ * 2. Uses local '/api' when developing on localhost or when running on the unified Render host
+ * 3. Automatically connects to 'https://puppy-clone.onrender.com/api' when hosted on Netlify
+ */
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return `${import.meta.env.VITE_API_URL.replace(/\/+$/, '')}/api`;
+  }
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host.includes('onrender.com')) {
+      return '/api';
+    }
+  }
+  return `${LIVE_BACKEND_URL}/api`;
+};
+
+const API_BASE = getApiBaseUrl();
+
+/**
+ * Helper to resolve uploaded/relative media URLs cleanly on both local and Netlify
+ */
+export const resolveMediaUrl = (url) => {
+  if (!url) return 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+    return url;
+  }
+  const clean = url.startsWith('/') ? url : `/${url}`;
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host.includes('onrender.com')) {
+      return clean;
+    }
+  }
+  return `${LIVE_BACKEND_URL}${clean}`;
+};
 
 /**
  * Safe fetch helper that gracefully handles network failures,

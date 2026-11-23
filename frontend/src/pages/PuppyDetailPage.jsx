@@ -115,7 +115,7 @@ export const PuppyDetailPage = () => {
 
   const currentOrigin = typeof window !== 'undefined' && window.location.origin
     ? window.location.origin
-    : 'https://puppy.instabizweb.com';
+    : 'https://glittery-naiad-b1204c.netlify.app';
   const waEnquiryText = `Hi TeddyPups! I'm enquiring about ${puppy.name} (${puppy.breed}, ${puppy.gender}, ${puppy.ageLabel || puppy.ageMonths + ' months'}) listed on ${currentOrigin}/puppies/${puppy.slug}. Could you share recent videos, health details, and how to reserve?`;
 
   return (
