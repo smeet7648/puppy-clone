@@ -7,6 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "build": "npm install && (test -d ../frontend && npm --prefix ../frontend install && npm --prefix ../frontend run build || true)",
+    "build:render": "npm install && (test -d ../frontend && npm --prefix ../frontend install && npm --prefix ../frontend run build || true)",
     "seed": "node seed.js"
   },
   "dependencies": {

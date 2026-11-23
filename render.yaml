@@ -6,7 +6,8 @@ services:
     runtime: node
     plan: free
     region: frankfurt # or singapore / oregon / ohio
-    buildCommand: npm run build:render
+    rootDir: .
+    buildCommand: npm install --prefix backend && npm install --prefix frontend && npm --prefix frontend run build
     startCommand: node backend/server.js
     healthCheckPath: /api/health
     autoDeploy: true
